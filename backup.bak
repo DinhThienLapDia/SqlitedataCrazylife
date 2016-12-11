@@ -1,0 +1,562 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE "django_migrations" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "app" varchar(255) NOT NULL, "name" varchar(255) NOT NULL, "applied" datetime NOT NULL);
+INSERT INTO "django_migrations" VALUES(1,'contenttypes','0001_initial','2016-12-08 15:18:28.357253');
+INSERT INTO "django_migrations" VALUES(2,'auth','0001_initial','2016-12-08 15:18:28.608648');
+INSERT INTO "django_migrations" VALUES(3,'admin','0001_initial','2016-12-08 15:18:28.784727');
+INSERT INTO "django_migrations" VALUES(4,'admin','0002_logentry_remove_auto_add','2016-12-08 15:18:28.952480');
+INSERT INTO "django_migrations" VALUES(5,'contenttypes','0002_remove_content_type_name','2016-12-08 15:18:29.136318');
+INSERT INTO "django_migrations" VALUES(6,'auth','0002_alter_permission_name_max_length','2016-12-08 15:18:29.269741');
+INSERT INTO "django_migrations" VALUES(7,'auth','0003_alter_user_email_max_length','2016-12-08 15:18:29.405532');
+INSERT INTO "django_migrations" VALUES(8,'auth','0004_alter_user_username_opts','2016-12-08 15:18:29.541164');
+INSERT INTO "django_migrations" VALUES(9,'auth','0005_alter_user_last_login_null','2016-12-08 15:18:29.652951');
+INSERT INTO "django_migrations" VALUES(10,'auth','0006_require_contenttypes_0002','2016-12-08 15:18:29.703156');
+INSERT INTO "django_migrations" VALUES(11,'auth','0007_alter_validators_add_error_messages','2016-12-08 15:18:29.836319');
+INSERT INTO "django_migrations" VALUES(12,'sessions','0001_initial','2016-12-08 15:18:29.944823');
+INSERT INTO "django_migrations" VALUES(13,'core','0001_initial','2016-12-08 15:20:26.679259');
+INSERT INTO "django_migrations" VALUES(14,'authtoken','0001_initial','2016-12-08 19:14:55.208849');
+INSERT INTO "django_migrations" VALUES(15,'authtoken','0002_auto_20160226_1747','2016-12-08 19:14:55.443280');
+INSERT INTO "django_migrations" VALUES(16,'account','0001_initial','2016-12-09 09:20:46.558747');
+INSERT INTO "django_migrations" VALUES(17,'account','0002_email_max_length','2016-12-09 09:20:46.776407');
+INSERT INTO "django_migrations" VALUES(18,'sites','0001_initial','2016-12-09 09:20:47.390854');
+INSERT INTO "django_migrations" VALUES(19,'sites','0002_alter_domain_unique','2016-12-09 09:20:47.571176');
+INSERT INTO "django_migrations" VALUES(20,'socialaccount','0001_initial','2016-12-09 09:20:47.997664');
+INSERT INTO "django_migrations" VALUES(21,'socialaccount','0002_token_max_lengths','2016-12-09 09:20:48.406904');
+INSERT INTO "django_migrations" VALUES(22,'socialaccount','0003_extra_data_default_dict','2016-12-09 09:20:48.638371');
+INSERT INTO "django_migrations" VALUES(23,'auth','0008_alter_user_username_max_length','2016-12-09 09:38:55.438515');
+INSERT INTO "django_migrations" VALUES(24,'core','0002_auto_20161209_1331','2016-12-09 13:40:08.683018');
+CREATE TABLE "auth_group" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(80) NOT NULL UNIQUE);
+INSERT INTO "auth_group" VALUES(2,'Đội ngũ content');
+CREATE TABLE "auth_group_permissions" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "group_id" integer NOT NULL REFERENCES "auth_group" ("id"), "permission_id" integer NOT NULL REFERENCES "auth_permission" ("id"));
+INSERT INTO "auth_group_permissions" VALUES(7,2,32);
+INSERT INTO "auth_group_permissions" VALUES(8,2,22);
+INSERT INTO "auth_group_permissions" VALUES(9,2,23);
+INSERT INTO "auth_group_permissions" VALUES(10,2,25);
+INSERT INTO "auth_group_permissions" VALUES(11,2,26);
+INSERT INTO "auth_group_permissions" VALUES(12,2,31);
+CREATE TABLE "auth_user_groups" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "user_id" integer NOT NULL REFERENCES "auth_user" ("id"), "group_id" integer NOT NULL REFERENCES "auth_group" ("id"));
+INSERT INTO "auth_user_groups" VALUES(1,2,2);
+INSERT INTO "auth_user_groups" VALUES(2,8,2);
+INSERT INTO "auth_user_groups" VALUES(3,10,2);
+CREATE TABLE "auth_user_user_permissions" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "user_id" integer NOT NULL REFERENCES "auth_user" ("id"), "permission_id" integer NOT NULL REFERENCES "auth_permission" ("id"));
+INSERT INTO "auth_user_user_permissions" VALUES(1,2,10);
+INSERT INTO "auth_user_user_permissions" VALUES(2,2,11);
+INSERT INTO "auth_user_user_permissions" VALUES(3,2,12);
+INSERT INTO "auth_user_user_permissions" VALUES(4,8,10);
+INSERT INTO "auth_user_user_permissions" VALUES(5,8,11);
+INSERT INTO "auth_user_user_permissions" VALUES(6,8,12);
+INSERT INTO "auth_user_user_permissions" VALUES(7,10,32);
+INSERT INTO "auth_user_user_permissions" VALUES(8,10,33);
+INSERT INTO "auth_user_user_permissions" VALUES(9,10,22);
+INSERT INTO "auth_user_user_permissions" VALUES(10,10,23);
+INSERT INTO "auth_user_user_permissions" VALUES(11,10,24);
+INSERT INTO "auth_user_user_permissions" VALUES(12,10,25);
+INSERT INTO "auth_user_user_permissions" VALUES(13,10,26);
+INSERT INTO "auth_user_user_permissions" VALUES(14,10,27);
+INSERT INTO "auth_user_user_permissions" VALUES(15,10,31);
+INSERT INTO "auth_user_user_permissions" VALUES(16,11,32);
+INSERT INTO "auth_user_user_permissions" VALUES(17,11,33);
+INSERT INTO "auth_user_user_permissions" VALUES(18,11,22);
+INSERT INTO "auth_user_user_permissions" VALUES(19,11,23);
+INSERT INTO "auth_user_user_permissions" VALUES(20,11,24);
+INSERT INTO "auth_user_user_permissions" VALUES(21,11,25);
+INSERT INTO "auth_user_user_permissions" VALUES(22,11,26);
+INSERT INTO "auth_user_user_permissions" VALUES(23,11,27);
+INSERT INTO "auth_user_user_permissions" VALUES(24,11,31);
+CREATE TABLE "django_admin_log" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "object_id" text NULL, "object_repr" varchar(200) NOT NULL, "action_flag" smallint unsigned NOT NULL, "change_message" text NOT NULL, "content_type_id" integer NULL REFERENCES "django_content_type" ("id"), "user_id" integer NOT NULL REFERENCES "auth_user" ("id"), "action_time" datetime NOT NULL);
+INSERT INTO "django_admin_log" VALUES(12,'1','Tự nấu ăn một bữa cơm ngon cho mẹ.',2,'Changed startDate and endDate.',11,7,'2016-12-09 09:56:04.811671');
+INSERT INTO "django_admin_log" VALUES(13,'8','sonpdh',1,'Added.',4,7,'2016-12-09 10:12:28.283885');
+INSERT INTO "django_admin_log" VALUES(14,'8','sonpdh',2,'Changed is_staff and groups.',4,7,'2016-12-09 10:12:49.274270');
+INSERT INTO "django_admin_log" VALUES(15,'2','Bạn có biết là để chuẩn bị một cành đào chơi tết phải công phu như thế nào chưa?',1,'Added.',11,8,'2016-12-09 10:14:31.438028');
+INSERT INTO "django_admin_log" VALUES(16,'1','https://docs.google.com/spreadsheets/d/1cjYM-DwbMo6xMMD8-0NQMQUjYpGTtQ0wLVtP2fsXWp8/edit#gid=1797085997',1,'Added.',9,8,'2016-12-09 10:15:00.118614');
+INSERT INTO "django_admin_log" VALUES(17,'1','admin',3,'',4,7,'2016-12-09 10:31:17.974588');
+INSERT INTO "django_admin_log" VALUES(18,'2','khanhph',2,'Changed user_permissions.',4,7,'2016-12-09 10:39:03.656348');
+INSERT INTO "django_admin_log" VALUES(19,'8','sonpdh',2,'Changed first_name, last_name and user_permissions.',4,7,'2016-12-09 10:45:00.971397');
+INSERT INTO "django_admin_log" VALUES(20,'10','manhhv',1,'Added.',4,2,'2016-12-09 10:45:38.327742');
+INSERT INTO "django_admin_log" VALUES(21,'10','manhhv',2,'Changed groups and user_permissions.',4,2,'2016-12-09 10:46:22.661359');
+INSERT INTO "django_admin_log" VALUES(22,'11','duannx',1,'Added.',4,2,'2016-12-09 10:46:56.551497');
+INSERT INTO "django_admin_log" VALUES(23,'10','manhhv',2,'Changed is_staff.',4,2,'2016-12-09 10:47:54.033492');
+INSERT INTO "django_admin_log" VALUES(24,'10','manhhv',2,'Changed is_staff and last_login.',4,8,'2016-12-09 10:48:15.173049');
+INSERT INTO "django_admin_log" VALUES(25,'11','duannx',2,'Changed is_staff and user_permissions.',4,2,'2016-12-09 10:48:21.339106');
+INSERT INTO "django_admin_log" VALUES(26,'10','manhhv',2,'Changed is_staff.',4,2,'2016-12-09 10:48:53.290300');
+INSERT INTO "django_admin_log" VALUES(27,'12','mamahd12',1,'Added.',4,8,'2016-12-09 10:48:57.926782');
+INSERT INTO "django_admin_log" VALUES(28,'12','mamahd12',2,'Changed is_staff.',4,8,'2016-12-09 10:49:48.148029');
+INSERT INTO "django_admin_log" VALUES(29,'12','mamahd12',3,'',4,8,'2016-12-09 10:51:06.004659');
+INSERT INTO "django_admin_log" VALUES(30,'1','Tự nấu ăn một bữa cơm ngon cho mẹ.',2,'Changed content.',11,8,'2016-12-09 10:54:15.236825');
+INSERT INTO "django_admin_log" VALUES(31,'3','ActionPicture object',3,'',8,7,'2016-12-09 11:54:43.525396');
+INSERT INTO "django_admin_log" VALUES(32,'2','ActionPicture object',3,'',8,7,'2016-12-09 11:54:43.529392');
+INSERT INTO "django_admin_log" VALUES(33,'1','ActionPicture object',3,'',8,7,'2016-12-09 11:54:43.534102');
+INSERT INTO "django_admin_log" VALUES(34,'1','https://docs.google.com/spreadsheets/d/1cjYM-DwbMo6xMMD8-0NQMQUjYpGTtQ0wLVtP2fsXWp8/edit#gid=1797085997',3,'',9,7,'2016-12-09 11:54:55.343652');
+INSERT INTO "django_admin_log" VALUES(35,'1','Tự nấu ăn một bữa cơm ngon cho mẹ.',2,'Changed firstPicture.',11,7,'2016-12-09 11:55:23.722142');
+INSERT INTO "django_admin_log" VALUES(36,'2','https://www.dienmayxanh.com/kinh-nghiem-hay/cach-nau-com-ngon-tu-noi-com-dien-534322',1,'Added.',9,7,'2016-12-09 12:25:44.007855');
+INSERT INTO "django_admin_log" VALUES(37,'3','Chuẩn bị những phong bao lì xì may mắn ngày Tết',1,'Added.',11,2,'2016-12-09 13:00:27.024822');
+INSERT INTO "django_admin_log" VALUES(38,'3','Chuẩn bị những phong bao lì xì may mắn ngày Tết',2,'Changed firstPicture.',11,2,'2016-12-09 13:01:50.174193');
+INSERT INTO "django_admin_log" VALUES(39,'4','Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?',1,'Added.',11,8,'2016-12-09 13:06:10.989121');
+INSERT INTO "django_admin_log" VALUES(40,'5','Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?',1,'Added.',11,8,'2016-12-09 13:06:11.463645');
+INSERT INTO "django_admin_log" VALUES(41,'6','Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?',1,'Added.',11,8,'2016-12-09 13:06:14.390993');
+INSERT INTO "django_admin_log" VALUES(42,'6','Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?',2,'No fields changed.',11,8,'2016-12-09 13:06:36.192754');
+INSERT INTO "django_admin_log" VALUES(43,'7','test',1,'Added.',11,7,'2016-12-09 13:23:27.951649');
+INSERT INTO "django_admin_log" VALUES(44,'7','test',3,'',11,7,'2016-12-09 13:23:39.460438');
+INSERT INTO "django_admin_log" VALUES(45,'6','Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?',2,'Changed content.',11,8,'2016-12-09 13:38:07.431541');
+INSERT INTO "django_admin_log" VALUES(46,'6','Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?',2,'Changed content.',11,8,'2016-12-09 13:38:34.303955');
+INSERT INTO "django_admin_log" VALUES(47,'5','Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?',2,'Changed content.',11,8,'2016-12-09 13:38:50.011228');
+INSERT INTO "django_admin_log" VALUES(48,'4','Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?',2,'Changed content.',11,8,'2016-12-09 13:40:43.883684');
+INSERT INTO "django_admin_log" VALUES(49,'6','Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?',2,'Changed content.',11,8,'2016-12-09 13:41:28.766557');
+INSERT INTO "django_admin_log" VALUES(50,'5','Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?',2,'Changed content.',11,8,'2016-12-09 13:41:35.695422');
+INSERT INTO "django_admin_log" VALUES(51,'6','Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?',3,'',11,7,'2016-12-09 13:41:37.415084');
+INSERT INTO "django_admin_log" VALUES(52,'5','Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?',3,'',11,7,'2016-12-09 13:41:49.134711');
+INSERT INTO "django_admin_log" VALUES(53,'2','khanhph',2,'Changed is_superuser.',4,7,'2016-12-09 13:42:53.449501');
+INSERT INTO "django_admin_log" VALUES(54,'8','sonpdh',2,'Changed is_superuser.',4,7,'2016-12-09 13:43:08.448116');
+INSERT INTO "django_admin_log" VALUES(55,'2','Bạn có biết là để chuẩn bị một cành đào chơi tết phải công phu như thế nào chưa?',3,'',11,2,'2016-12-09 13:43:53.044404');
+INSERT INTO "django_admin_log" VALUES(56,'1','Tự nấu ăn một bữa cơm ngon cho mẹ.',3,'',11,8,'2016-12-09 13:45:54.979711');
+INSERT INTO "django_admin_log" VALUES(57,'4','Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?',2,'Changed content.',11,8,'2016-12-09 13:53:12.246864');
+INSERT INTO "django_admin_log" VALUES(58,'4','Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?',2,'Changed firstPicture.',11,8,'2016-12-09 13:53:49.226346');
+INSERT INTO "django_admin_log" VALUES(59,'8','Cắt tóc đón năm mới',1,'Added.',11,2,'2016-12-09 14:03:11.537616');
+INSERT INTO "django_admin_log" VALUES(60,'9','Tự mình chuẩn bị một bình hoa đẹp',1,'Added.',11,10,'2016-12-09 14:03:40.111162');
+INSERT INTO "django_admin_log" VALUES(61,'10','Đầu năm mới bạn đã đi  lễ chùa cầu an cho bản thân và gia đình chưa?',1,'Added.',11,8,'2016-12-09 14:09:32.518949');
+INSERT INTO "django_admin_log" VALUES(62,'11','Nếu có ghé qua các đền chùa vào dịp tết, đừng quên xin một quẻ bói xem tử vi của năm mới',1,'Added.',11,8,'2016-12-09 14:22:24.573659');
+INSERT INTO "django_admin_log" VALUES(63,'11','Nếu có ghé qua các đền chùa vào dịp tết, đừng quên xin một quẻ bói xem tử vi của năm mới',2,'No fields changed.',11,8,'2016-12-09 14:22:41.405295');
+INSERT INTO "django_admin_log" VALUES(64,'8','Cắt tóc đón năm mới',2,'Changed startDate, endDate and firstPicture.',11,2,'2016-12-09 14:23:49.126966');
+INSERT INTO "django_admin_log" VALUES(65,'12','Sắm cây quất ngày Tết',1,'Added.',11,10,'2016-12-09 14:34:54.106405');
+INSERT INTO "django_admin_log" VALUES(66,'9','Tự mình chuẩn bị một bình hoa đẹp',2,'Changed content.',11,10,'2016-12-09 14:37:41.391916');
+INSERT INTO "django_admin_log" VALUES(67,'13','Tết này chọn Đào nào đây !!!???',1,'Added.',11,11,'2016-12-09 14:38:15.972878');
+INSERT INTO "django_admin_log" VALUES(68,'13','Tết này chọn Đào nào đây !!!???',2,'Changed firstPicture.',11,11,'2016-12-09 14:39:26.751690');
+INSERT INTO "django_admin_log" VALUES(69,'14','Mọi người sẽ rất bất ngờ khi nhận được lời chúc viết tay của bạn đó',1,'Added.',11,8,'2016-12-09 14:43:07.608849');
+INSERT INTO "django_admin_log" VALUES(70,'15','Mọi người sẽ rất bất ngờ khi nhận được lời chúc viết tay của bạn đó',1,'Added.',11,8,'2016-12-09 14:43:09.818798');
+INSERT INTO "django_admin_log" VALUES(71,'15','Mọi người sẽ rất bất ngờ khi nhận được lời chúc viết tay của bạn đó',2,'Changed firstPicture.',11,8,'2016-12-09 14:43:21.748246');
+INSERT INTO "django_admin_log" VALUES(72,'15','Mọi người sẽ rất bất ngờ khi nhận được lời chúc viết tay của bạn đó',2,'Changed firstPicture.',11,8,'2016-12-09 14:43:44.136069');
+INSERT INTO "django_admin_log" VALUES(73,'14','Mọi người sẽ rất bất ngờ khi nhận được lời chúc viết tay của bạn đó',3,'',11,8,'2016-12-09 14:43:57.125038');
+INSERT INTO "django_admin_log" VALUES(74,'16','Có một buổi liên hoan nhỏ đầm ấm đón chờ khoảnh khẳn giao thừa',1,'Added.',11,8,'2016-12-09 14:51:24.330584');
+INSERT INTO "django_admin_log" VALUES(75,'17','Mình còn mừng tuổi ông bà được bao nhiêu lần nữa vậy ba?',1,'Added.',11,11,'2016-12-09 14:59:35.583428');
+INSERT INTO "django_admin_log" VALUES(76,'18','Gửi những lời chúc chân thành đên cha mẹ',1,'Added.',11,8,'2016-12-09 15:00:50.166644');
+INSERT INTO "django_admin_log" VALUES(77,'19','Tạo một căn nhà tràn ngập màu sắc với đèn và bóng nháy',1,'Added.',11,10,'2016-12-09 15:18:21.294726');
+INSERT INTO "django_admin_log" VALUES(78,'20','Trông nồi bánh chưng ngày Tết',1,'Added.',11,2,'2016-12-09 15:19:50.235547');
+INSERT INTO "django_admin_log" VALUES(79,'18','Gửi những lời chúc chân thành đến cha mẹ',2,'Changed title.',11,2,'2016-12-09 15:20:33.768075');
+INSERT INTO "django_admin_log" VALUES(80,'19','Tạo một căn nhà tràn ngập màu sắc với đèn và bóng nháy',2,'Changed firstPicture.',11,10,'2016-12-09 15:21:34.319076');
+INSERT INTO "django_admin_log" VALUES(81,'21','"Mồng ba tết thầy"',1,'Added.',11,8,'2016-12-09 15:24:46.535065');
+INSERT INTO "django_admin_log" VALUES(82,'22','Tiễn chân ông táo về trời',1,'Added.',11,8,'2016-12-09 15:29:46.043607');
+INSERT INTO "django_admin_log" VALUES(83,'23','Gia đình bạn đã nhờ ai xông nhà tết năm nay chưa?',1,'Added.',11,8,'2016-12-09 15:33:54.275770');
+INSERT INTO "django_admin_log" VALUES(84,'24','Đêm nay khai bút đầu năm, Cầu cho năm mới phơi phới điều may',1,'Added.',11,11,'2016-12-09 15:36:56.025159');
+INSERT INTO "django_admin_log" VALUES(85,'25','Đưa mẹ đi chợ ngày Tết',1,'Added.',11,2,'2016-12-09 15:41:41.026374');
+INSERT INTO "django_admin_log" VALUES(86,'26','Bạn đã thử mời một người bạn ngoại quốc về ăn tết Việt chưa?',1,'Added.',11,8,'2016-12-09 15:45:12.764880');
+INSERT INTO "django_admin_log" VALUES(87,'27','Treo ảnh gia đình đón mừng năm mới',1,'Added.',11,2,'2016-12-09 16:04:57.925846');
+INSERT INTO "django_admin_log" VALUES(88,'28','Em yêu !!! Tết này mình đi cầu duyên !',1,'Added.',11,11,'2016-12-09 16:17:01.599199');
+INSERT INTO "django_admin_log" VALUES(89,'29','Đừng quên lập mục tiêu cho năm mới nhé',1,'Added.',11,11,'2016-12-09 16:39:55.887089');
+INSERT INTO "django_admin_log" VALUES(90,'30','Mừng tuổi bố mẹ đêm giao thừa',1,'Added.',11,8,'2016-12-10 01:40:03.963360');
+INSERT INTO "django_admin_log" VALUES(91,'31','Ra chợ bán hoa những ngày trước Tết',1,'Added.',11,8,'2016-12-10 01:43:06.978874');
+INSERT INTO "django_admin_log" VALUES(92,'32','Mua sách đầu năm',1,'Added.',11,2,'2016-12-10 02:29:38.537076');
+INSERT INTO "django_admin_log" VALUES(93,'33','Cùng bạn bè tham gia một trận thể thao khai xuân đầu năm',1,'Added.',11,8,'2016-12-10 02:42:55.989146');
+INSERT INTO "django_admin_log" VALUES(94,'34','Hát cho cả nhà nghe đêm giao thừa',1,'Added.',11,2,'2016-12-10 02:46:18.640387');
+INSERT INTO "django_admin_log" VALUES(95,'35','Hóa vàng ngày tết bên gia đình',1,'Added.',11,8,'2016-12-10 02:52:47.267429');
+INSERT INTO "django_admin_log" VALUES(96,'30','Phong bì nhỏ, bỏ vào bao, trao người lớn',2,'Changed title and content.',11,8,'2016-12-10 07:09:21.503863');
+INSERT INTO "django_admin_log" VALUES(97,'31','Góp những nhành hoa Xuân làm đẹp cho đời',2,'Changed title and content.',11,8,'2016-12-10 07:11:29.388722');
+INSERT INTO "django_admin_log" VALUES(98,'31','Bạn đã bao giờ kinh doanh hoa vào dịp tết chưa?',2,'Changed title.',11,8,'2016-12-10 07:12:26.036967');
+INSERT INTO "django_admin_log" VALUES(99,'36','Chia sẻ những bức ảnh tết trên quê hương mình với bạn bè',1,'Added.',11,8,'2016-12-10 07:19:25.865490');
+INSERT INTO "django_admin_log" VALUES(100,'37','Tự tay làm lịch Tết đón năm mới',1,'Added.',11,2,'2016-12-10 07:34:51.823321');
+INSERT INTO "django_admin_log" VALUES(101,'38','Cùng người yêu đi du xuân, lễ hội cầu may',1,'Added.',11,8,'2016-12-10 07:37:03.179870');
+INSERT INTO "django_admin_log" VALUES(102,'39','Dành chút khoảng riêng ngày tết cho bản thân tự do làm những gì mình thích',1,'Added.',11,8,'2016-12-10 07:47:59.632506');
+INSERT INTO "django_admin_log" VALUES(103,'40','Bạn đã biết mình sẽ mặc gì vào những ngày đầu xuân chưa?',1,'Added.',11,8,'2016-12-10 07:52:45.911738');
+INSERT INTO "django_admin_log" VALUES(104,'41','Bạn đã biết mình sẽ mặc gì vào những ngày đầu xuân chưa?',1,'Added.',11,8,'2016-12-10 07:52:47.461301');
+INSERT INTO "django_admin_log" VALUES(105,'40','Bạn đã biết mình sẽ mặc gì vào những ngày đầu xuân chưa?',3,'',11,8,'2016-12-10 08:04:21.060280');
+INSERT INTO "django_admin_log" VALUES(106,'41','Bạn đã biết mình sẽ mặc gì vào những ngày đầu xuân chưa?',2,'No fields changed.',11,8,'2016-12-10 08:05:10.256751');
+INSERT INTO "django_admin_log" VALUES(107,'42','Đi chợ hoa ngày Tết',1,'Added.',11,2,'2016-12-10 08:06:33.497363');
+INSERT INTO "django_admin_log" VALUES(108,'43','Một chuyến đi chơi xa ngày tết cùng đám bạn cũ',1,'Added.',11,10,'2016-12-10 08:10:31.627652');
+INSERT INTO "django_admin_log" VALUES(109,'44','Tập tành kinh doanh ngày tết',1,'Added.',11,10,'2016-12-10 08:26:04.894566');
+INSERT INTO "django_admin_log" VALUES(110,'45','Đi từ thiện vùng cao dịp giáp Tết',1,'Added.',11,2,'2016-12-10 08:53:27.251633');
+INSERT INTO "django_admin_log" VALUES(111,'46','Chụp ảnh đại gia đình vào năm mới',1,'Added.',11,10,'2016-12-10 08:53:32.340040');
+INSERT INTO "django_admin_log" VALUES(112,'47','Ngắm nhìn phố phường ngày tết vào buổi sáng sớm',1,'Added.',11,8,'2016-12-10 08:56:16.773157');
+CREATE TABLE "django_content_type" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "app_label" varchar(100) NOT NULL, "model" varchar(100) NOT NULL);
+INSERT INTO "django_content_type" VALUES(1,'admin','logentry');
+INSERT INTO "django_content_type" VALUES(2,'auth','permission');
+INSERT INTO "django_content_type" VALUES(3,'auth','group');
+INSERT INTO "django_content_type" VALUES(4,'auth','user');
+INSERT INTO "django_content_type" VALUES(5,'contenttypes','contenttype');
+INSERT INTO "django_content_type" VALUES(6,'sessions','session');
+INSERT INTO "django_content_type" VALUES(7,'core','userprofile');
+INSERT INTO "django_content_type" VALUES(8,'core','actionpicture');
+INSERT INTO "django_content_type" VALUES(9,'core','actionreflink');
+INSERT INTO "django_content_type" VALUES(10,'core','comment');
+INSERT INTO "django_content_type" VALUES(11,'core','action');
+INSERT INTO "django_content_type" VALUES(12,'core','invitation');
+INSERT INTO "django_content_type" VALUES(13,'core','activity');
+INSERT INTO "django_content_type" VALUES(14,'core','notification');
+INSERT INTO "django_content_type" VALUES(15,'authtoken','token');
+INSERT INTO "django_content_type" VALUES(16,'sites','site');
+INSERT INTO "django_content_type" VALUES(17,'account','emailaddress');
+INSERT INTO "django_content_type" VALUES(18,'account','emailconfirmation');
+INSERT INTO "django_content_type" VALUES(19,'socialaccount','socialapp');
+INSERT INTO "django_content_type" VALUES(20,'socialaccount','socialaccount');
+INSERT INTO "django_content_type" VALUES(21,'socialaccount','socialtoken');
+CREATE TABLE "auth_permission" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "content_type_id" integer NOT NULL REFERENCES "django_content_type" ("id"), "codename" varchar(100) NOT NULL, "name" varchar(255) NOT NULL);
+INSERT INTO "auth_permission" VALUES(1,1,'add_logentry','Can add log entry');
+INSERT INTO "auth_permission" VALUES(2,1,'change_logentry','Can change log entry');
+INSERT INTO "auth_permission" VALUES(3,1,'delete_logentry','Can delete log entry');
+INSERT INTO "auth_permission" VALUES(4,2,'add_permission','Can add permission');
+INSERT INTO "auth_permission" VALUES(5,2,'change_permission','Can change permission');
+INSERT INTO "auth_permission" VALUES(6,2,'delete_permission','Can delete permission');
+INSERT INTO "auth_permission" VALUES(7,3,'add_group','Can add group');
+INSERT INTO "auth_permission" VALUES(8,3,'change_group','Can change group');
+INSERT INTO "auth_permission" VALUES(9,3,'delete_group','Can delete group');
+INSERT INTO "auth_permission" VALUES(10,4,'add_user','Can add user');
+INSERT INTO "auth_permission" VALUES(11,4,'change_user','Can change user');
+INSERT INTO "auth_permission" VALUES(12,4,'delete_user','Can delete user');
+INSERT INTO "auth_permission" VALUES(13,5,'add_contenttype','Can add content type');
+INSERT INTO "auth_permission" VALUES(14,5,'change_contenttype','Can change content type');
+INSERT INTO "auth_permission" VALUES(15,5,'delete_contenttype','Can delete content type');
+INSERT INTO "auth_permission" VALUES(16,6,'add_session','Can add session');
+INSERT INTO "auth_permission" VALUES(17,6,'change_session','Can change session');
+INSERT INTO "auth_permission" VALUES(18,6,'delete_session','Can delete session');
+INSERT INTO "auth_permission" VALUES(19,7,'add_userprofile','Can add UserProfile');
+INSERT INTO "auth_permission" VALUES(20,7,'change_userprofile','Can change UserProfile');
+INSERT INTO "auth_permission" VALUES(21,7,'delete_userprofile','Can delete UserProfile');
+INSERT INTO "auth_permission" VALUES(22,8,'add_actionpicture','Can add ActionPicture');
+INSERT INTO "auth_permission" VALUES(23,8,'change_actionpicture','Can change ActionPicture');
+INSERT INTO "auth_permission" VALUES(24,8,'delete_actionpicture','Can delete ActionPicture');
+INSERT INTO "auth_permission" VALUES(25,9,'add_actionreflink','Can add ActionRefLink');
+INSERT INTO "auth_permission" VALUES(26,9,'change_actionreflink','Can change ActionRefLink');
+INSERT INTO "auth_permission" VALUES(27,9,'delete_actionreflink','Can delete ActionRefLink');
+INSERT INTO "auth_permission" VALUES(28,10,'add_comment','Can add Comment');
+INSERT INTO "auth_permission" VALUES(29,10,'change_comment','Can change Comment');
+INSERT INTO "auth_permission" VALUES(30,10,'delete_comment','Can delete Comment');
+INSERT INTO "auth_permission" VALUES(31,11,'add_action','Can add Action');
+INSERT INTO "auth_permission" VALUES(32,11,'change_action','Can change Action');
+INSERT INTO "auth_permission" VALUES(33,11,'delete_action','Can delete Action');
+INSERT INTO "auth_permission" VALUES(34,12,'add_invitation','Can add Invitation');
+INSERT INTO "auth_permission" VALUES(35,12,'change_invitation','Can change Invitation');
+INSERT INTO "auth_permission" VALUES(36,12,'delete_invitation','Can delete Invitation');
+INSERT INTO "auth_permission" VALUES(37,13,'add_activity','Can add Activity');
+INSERT INTO "auth_permission" VALUES(38,13,'change_activity','Can change Activity');
+INSERT INTO "auth_permission" VALUES(39,13,'delete_activity','Can delete Activity');
+INSERT INTO "auth_permission" VALUES(40,14,'add_notification','Can add Notification');
+INSERT INTO "auth_permission" VALUES(41,14,'change_notification','Can change Notification');
+INSERT INTO "auth_permission" VALUES(42,14,'delete_notification','Can delete Notification');
+INSERT INTO "auth_permission" VALUES(43,15,'add_token','Can add Token');
+INSERT INTO "auth_permission" VALUES(44,15,'change_token','Can change Token');
+INSERT INTO "auth_permission" VALUES(45,15,'delete_token','Can delete Token');
+INSERT INTO "auth_permission" VALUES(46,16,'add_site','Can add site');
+INSERT INTO "auth_permission" VALUES(47,16,'change_site','Can change site');
+INSERT INTO "auth_permission" VALUES(48,16,'delete_site','Can delete site');
+INSERT INTO "auth_permission" VALUES(49,17,'add_emailaddress','Can add email address');
+INSERT INTO "auth_permission" VALUES(50,17,'change_emailaddress','Can change email address');
+INSERT INTO "auth_permission" VALUES(51,17,'delete_emailaddress','Can delete email address');
+INSERT INTO "auth_permission" VALUES(52,18,'add_emailconfirmation','Can add email confirmation');
+INSERT INTO "auth_permission" VALUES(53,18,'change_emailconfirmation','Can change email confirmation');
+INSERT INTO "auth_permission" VALUES(54,18,'delete_emailconfirmation','Can delete email confirmation');
+INSERT INTO "auth_permission" VALUES(55,19,'add_socialapp','Can add social application');
+INSERT INTO "auth_permission" VALUES(56,19,'change_socialapp','Can change social application');
+INSERT INTO "auth_permission" VALUES(57,19,'delete_socialapp','Can delete social application');
+INSERT INTO "auth_permission" VALUES(58,20,'add_socialaccount','Can add social account');
+INSERT INTO "auth_permission" VALUES(59,20,'change_socialaccount','Can change social account');
+INSERT INTO "auth_permission" VALUES(60,20,'delete_socialaccount','Can delete social account');
+INSERT INTO "auth_permission" VALUES(61,21,'add_socialtoken','Can add social application token');
+INSERT INTO "auth_permission" VALUES(62,21,'change_socialtoken','Can change social application token');
+INSERT INTO "auth_permission" VALUES(63,21,'delete_socialtoken','Can delete social application token');
+CREATE TABLE "django_session" ("session_key" varchar(40) NOT NULL PRIMARY KEY, "session_data" text NOT NULL, "expire_date" datetime NOT NULL);
+INSERT INTO "django_session" VALUES('mrr8jjquhf5a7ws8zfsu1c589xf09ofw','NTcwMzcwMzcyOGI3YWI3MzY5ODFjOTZkOTQ3YmRjMjA5M2U3MzUwNzp7Il9hdXRoX3VzZXJfaGFzaCI6ImRlMGRkYmQ5ZDUzZGYxZDE2NDZmMDU2ZjVlODJkODMzMjE0ZjU0YmQiLCJfYXV0aF91c2VyX2lkIjoiOCIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=','2016-12-23 10:13:10.314872');
+INSERT INTO "django_session" VALUES('3mfepufdr7googk48wbxehgc9wput3d3','N2MyZGE3MzIyODAwZjJiMDE2Zjg4MjY5YzRlMGU3NDA5OWM5NjNkYTp7Il9hdXRoX3VzZXJfaGFzaCI6IjQzZTI3NGEwOTJlYTFiZjE4ZDYyYzJkODIwYTAwY2FhMWQzNzhkNjMiLCJfYXV0aF91c2VyX2lkIjoiMTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCJ9','2016-12-23 10:49:03.758333');
+INSERT INTO "django_session" VALUES('s8ixhtlhfdqs3tt6rg18v25f122kprtf','ZDA5M2VlNGIyNjE2ZDcxNDgyYWI0MzZhZDRmMGM4MTkwNTBkNWNkNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjMzNmZiZTliZTVhMjU5N2YxMDE3ZGU5M2MyZTAwNThhMjQyZjk1NGMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxMSJ9','2016-12-23 10:48:56.854718');
+INSERT INTO "django_session" VALUES('bii1cs5fascbc58myvj5do7ir0dryulc','MDc5NWMyZDc1MjJjOWE2OGQ4ZDZkNTIyODUwMzgxNTViMDU4YTM4NDp7Il9hdXRoX3VzZXJfaGFzaCI6IjM5YzM2MTJjNjg5Njc5MWE3ZWY1NzhmODM0OTI0MzE0NzliZWUxYzkiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxMiJ9','2016-12-23 10:49:52.192722');
+INSERT INTO "django_session" VALUES('4o10lr0wfev9vuhylfmvssyc8n02k20q','NTI4MjkzYTEzZGYwODNjNzMyZGJjZmFkMjM5NDZkMjQ5MGI0NTQ1Nzp7Il9hdXRoX3VzZXJfaGFzaCI6ImRlMGRkYmQ5ZDUzZGYxZDE2NDZmMDU2ZjVlODJkODMzMjE0ZjU0YmQiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiI4In0=','2016-12-23 11:54:12.763891');
+INSERT INTO "django_session" VALUES('q4whpn1t64el4pnh2uegitetfjh1vd0e','MzI2ZGU3MmYzNGEzOTgzNTE1NWVmYjU2OTQ5OTMyNTM4NmQ4Zjg1Njp7Il9hdXRoX3VzZXJfaGFzaCI6ImFkMjg5ZjY4YmQyYzc5OWUyODQ3NDA0NGQyYjI2NzI4MjMzZDY3YmEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0=','2016-12-23 13:04:26.094423');
+INSERT INTO "django_session" VALUES('vt16r9dwqw1oimrcoh19wnachp854y1x','YTY3Y2NiZWIyMjc3ZWI4NmE0ZGZmNDQzZmM4ZDViMmZmZDkwMjE0MDp7Il9hdXRoX3VzZXJfaGFzaCI6ImQwOTQxMTMwMmUyMjk5YjFiOGJmMDJhZWVhOGU4MGIwODdlYzhiODEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiI3In0=','2016-12-23 13:42:18.824776');
+CREATE TABLE "core_action" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "title" varchar(1024) NULL, "content" text NOT NULL, "createDate" datetime NOT NULL, "startDate" datetime NULL, "endDate" datetime NULL, "modified" datetime NOT NULL, "firstPicture" varchar(100) NOT NULL);
+INSERT INTO "core_action" VALUES(3,'Chuẩn bị những phong bao lì xì may mắn ngày Tết','Tết vui, Tết sum vầy, Tết là phải có bánh chưng, bát Tét. Nhưng Tết cũng không thể thiếu chuyện mừng tuổi cho nhau, chúc nhau may mắn, sức khỏe, giàu có, sung túc. Từ trẻ con, người già, thậm chí là những người trung tuổi đều được nhận phong bao lì xì thể hiện sự may mắn.
+
+Người Việt bao đời nay vẫn giữ nguyên phong tục truyền thống ấy và nhất nhất không thể nào quên mỗi dịp đi chơi, gặp gỡ người khác khi xuân về.
+
+Bạn có thể tự tay làm những chiếc lì xì để gửi gắm sự chân thành của mình hoặc đi sắm tết và chọn những phong bao lì xì may mắn với nhiều mẫu mã khác nhau.
+
+Chi tiết tham khảo thêm:
+Các mẫu bao lì xì handmade năm 2017 {http://vietgiftcenter.com/phong-bao-li-xi-dep-doc-handmade-tet-binh-than-2016}
+Nguồn gốc và ý nghĩa của phong tục lì xì ngày Tết {https://www.youtube.com/watch?v=ul6RVxANqns}','2016-12-09 13:00:27.021288','2017-01-12 12:59:40','2017-01-27 12:00:00','2016-12-09 13:01:50.164699','action/images/Laisee.jpg');
+INSERT INTO "core_action" VALUES(4,'Tết năm nay bạn đã có những dự định gì cho bản thân và gia đình rồi?','Trong không khí của tết nguyên đán đang rạo rực khắp các phố phường, bạn đã có một kế hoạch cụ thể nào cho tết nguyên đán sắp tới chưa?
+Hãy để dịp tết này sẽ luôn ngập tràn trong niềm vui và tiếng cười. Bạn định về thăm quê hay là chọn cách ăn tết ở một thành phố lạ?  Bạn muốn thăm thú các lễ hội cổ truyền hay đơn giản là đi cầu ăn ở ngồi chùa làng cổ kính? Có rất nhiều lựa chọn để bạn có thế trải nghiệm và chắc chắc nó sẽ là những kỷ niệm không thể nào quên của bạn đó.','2016-12-09 13:06:10.985114','2016-12-09 12:57:03','2017-01-31 12:57:11','2016-12-09 13:53:49.218808','action/images/1111111111_cNNIicw.jpg');
+INSERT INTO "core_action" VALUES(8,'Cắt tóc đón năm mới','Hiện nay đang là thời điểm vừa là những ngày thường bận rộn vừa là những ngày chúng ta chờ đợi đón năm mới.  Hẳn là các bạn ai cũng đang háo hức chuẩn bị quần áo đẹp, làm mới bản thân chuẩn bị đón Tết nhưng các bạn cũng đừng quên lựa chọn cho mình những mẫu tóc đẹp để thật tự tin và nổi bật khi du xuân nhé.
+Có rất nhiều mẫu tóc đẹp cho bạn lựa chọn để diện đi chơi trong dịp Tết này. 
+Chi tiết tham khảo thêm
+Các kiểu tóc đẹp cho các bạn gái dịp Tết {http://www.lamsao.com/cac-kieu-toc-dep-de-chi-em-dieu-da-don-tet-p214a99898.html}
+Các kiểu tóc đẹp cho nam giới dịp Tết {http://www.biendao24h.vn/products/Kieu-toc-nam-truyen-thong-ton-tai-mai-voi-thoi-gian.html}','2016-12-09 14:03:11.532733','2016-12-01 07:03:22','2017-01-27 05:00:00','2016-12-09 14:23:49.111820','action/images/1389599906-img_0394.jpg');
+INSERT INTO "core_action" VALUES(9,'Tự mình chuẩn bị một bình hoa đẹp','Mỗi dịp Tết đến xuân về, kháo nhau tìm mua hoa tươi sớm để cắm hoa Tết cho ngôi nhà thêm tươi mới. Theo tâm linh đặt hoa tươi trong nhà có ý nghĩa cầu mong một năm mới khởi sắc với nhiều may măn, đầy đủ. Tùy theo từng loại hoa khác nhau sẽ có ý nghĩa khác nhau. Nếu các năm thường mẹ hay chị sẽ làm điều đó tại sao năm nay bạn không tự tay mình chuẩn bị một bình hoa như thế nhỉ?
+ Từ việc chọn hoa mua hoa hay cắm hoa đều là những công việc rất thú vị vừa thể hiện được gu thẩm mỹ của bạn nữa, hãy xách mông lên và cắm ngay một bình hoa theo hướng dẫn thôi nào
+ 
+chi tiết đây nhé mọi người {https://tuyentaphay.com/tuyen-tap-cac-mau-cam-hoa-de-ban-ngay-tet-mang-loc-vao-nha}','2016-12-09 14:03:40.107253',NULL,NULL,'2016-12-09 14:37:41.383224','action/images/cuu-nguoi-mau-thuy-hanh-day-con-cam-hoa-ngay-tet.jpg');
+INSERT INTO "core_action" VALUES(10,'Đầu năm mới bạn đã đi  lễ chùa cầu an cho bản thân và gia đình chưa?','Lễ Chùa đầu năm đã trở thành một nét văn hóa không thể thiếu của mỗi con người Việt Nam mỗi dịp tết đến xuân về. Bên cạnh những hoạt động vui chơi giải trí, những lễ hội tưng bằng sắc xuân thì không khí linh thiêng, thanh tịnh ở những đền, miếu cũng là hoạt động thu hút rất nhiều bạn trẻ tham gia với lý do:" Cầu một năm mới may mắn, bình yên, hạnh phúc"','2016-12-09 14:09:32.514207','2016-12-09 07:06:01','2017-01-31 07:06:08','2016-12-09 14:09:32.514347','action/images/images923115_5.JPG');
+INSERT INTO "core_action" VALUES(11,'Nếu có ghé qua các đền chùa vào dịp tết, đừng quên xin một quẻ bói xem tử vi của năm mới','Đi lễ chùa đầu năm và xin quẻ là phong tục lâu đời của người Việt. Theo tục cũ, người đi chùa sau khi dâng lễ chọn lấy một quẻ thẻ thường làm bằng tre có ghi số hiệu hoặc ghi một câu ngắn gọn bằng tiếng Hán nêu tổng quát về cuộc đời, vận hạn của người rút quẻ trong năm đó. Ngày nay, thay vì thẻ tre, các chùa thường dùng thẻ giấy và chữ quốc ngữ để người xem dễ hiểu, không cần nhờ đến các thầy đồ luận giải. 
+Tại một số đình chùa, người đi lễ được rút thẻ miễn phí. Nội dung các quẻ thẻ tập trung nói đến vận hạn của mọi người trong năm. Quẻ tốt hay xấu thể hiện ngay ở tên quẻ: quẻ đại cát, quẻ thượng thượng, quẻ hạ hạ.... Cũng có những quẻ luận giải cụ thể các vấn đề hôn nhân, cầu tài, cầu danh, gia trạch.... và tổng giải.
+Người đi lễ chùa rút quẻ đầu năm xuất phát từ mong muốn sẽ gặp nhiều may mắn, an lành trong cả năm trước mắt. Đây là phong tục đã được nhân dân ta lưu giữ từ lâu và trở thành nét đẹp văn hóa mỗi dịp tết đến, xuân về. 
+Dẫu vậy nhưng những điều ta xem được chưa chắc đã đáng tin, thế nên nếu không mang có gặp phải quẻ xui thì cũng đừng vì thế mà lo lắng nha.','2016-12-09 14:22:24.567539','2016-12-09 14:21:43','2017-01-31 14:21:48','2016-12-09 14:22:41.399951','action/images/gieo-que3.png');
+INSERT INTO "core_action" VALUES(12,'Sắm cây quất ngày Tết','Cây quất thường được người dân lựa chọn để trang trí vào dịp Tết cũng bởi theo âm Hán Việt thì âm của từ "quất" gần giống âm của từ "cát". Quất có lá xanh tốt, sai quả, quả vàng đều thể hiện sự trù phú, hứa hẹn một năm mới được mùa, ăn nên làm ra, dồi dào sức sống. 
+    Chính vì vậy, mỗi khi Tết đến xuân về, ngoài việc xem ngày tốt xấu để dọn dẹp nhà cửa đón Tết, nhà nhà đều bài trí cây quất với hy vọng mang lại niềm vui và may mắn trong cả năm cho gia đình. Ngoài ra, cành quất trĩu quả trong quan niệm dân gian là biểu tượng cho sức khỏe, bình an, trường thọ và sự may mắn trong tình duyên, thể hiện sự sum vầy của nhiều thế hệ trong gia đình. Những cây quất lá xanh tốt, quả vàng chi chít thể hiện sự trù phú, hứa hẹn năm mới được mùa, ăn nên làm ra, dồi dào sức sống. Bài trí cây quất trong nhà với hy vọng mang lại niềm vui và may mắn cả năm cho gia đình, trong kinh doanh, đặt cây quất ở văn phòng hoặc cửa hàng sẽ đem lại cát khí lớn lao, sự đầu tư sáng suốt và thu được nhiều tài lộc.
+
+Chi tiết tại {http://saigonhoa.com/product/cay-quat-cay-tac-ngay-tet/}','2016-12-09 14:34:54.098328',NULL,NULL,'2016-12-09 14:34:54.098448','action/images/Manhhv2.jpg');
+INSERT INTO "core_action" VALUES(13,'Tết này chọn Đào nào đây !!!???','Cây đào được xem là tinh hoa của Ngũ hành, theo phong thủy cây này có thể trị bách quỷ hơn nữa hoa đào còn là biểu tượng cho sự đổi mới và sức sinh sôi phát triển mạnh mẽ. 
+Vì vậy sắm một cây đào tết thật đẹp để tô điểm cho Tết năm nay thôi !
+
+Kinh nghiệm chọn và chăm sóc hoa đào ngày Tết: 
+Chọn đào
+
+Chơi đào ngày Tết là cả một nghệ thuật cao cấp từ người trồng cho đến người mua, phụ thuộc vào nhiều yếu tố: kỹ thuật trồng, chăm sóc, điều kiện kinh tế, sở thích, loại đèn, màu tường, không gian rộng hay hẹp và cách trang trí phòng khách… của mỗi hộ gia đình mà chọn lựa cho phù hợp. Đào có nhiều giống: đào bích, đào phai, đào trắng (bạch đào, rất hiếm); có đào thế, đào cảnh trồng chậu, đào cắt cành cắm lọ…
+Xem thêm: {http://vietnamnet.vn/vn/doi-song/kinh-nghiem-chon-va-cham-soc-hoa-dao-ngay-tet-220248.html}','2016-12-09 14:38:15.968350',NULL,NULL,'2016-12-09 14:39:26.747366','action/images/duan-00001.jpg');
+INSERT INTO "core_action" VALUES(15,'Mọi người sẽ rất bất ngờ khi nhận được lời chúc viết tay của bạn đó','Mỗi một tấm thiệp mang những lời chúc sức khỏe, may mắn và bình an của bạn sẽ làm những  người thân trong gia đình cảm thấy cảm động và hành phúc viết bao. Hãy để món quà nhỏ này là một điều bất ngờ cho mọi người bạn nhé!!','2016-12-09 14:43:09.812813','2016-12-09 14:25:47','2017-01-31 14:26:35','2016-12-09 14:43:44.130347','action/images/son0001.jpg');
+INSERT INTO "core_action" VALUES(16,'Có một buổi liên hoan nhỏ đầm ấm đón chờ khoảnh khẳn giao thừa','Đêm Giao thừa là một buổi tối đặc biệt. Đó là một buổi tối thật ấn tượng. Nó là thời điểm của năm mà bạn có thể bỏ lại hết những nỗi đau buồn trong năm qua và đón chào những giấc mơ và hoài bão của chúng ta trong năm tới. Chúng ta cũng có thể nhìn lại những điều tốt đẹp mà chúng ta đã làm được, những người bạn mới, những kỳ lễ hội và những thành công trong công việc mà chúng ta đã có. 
+
+Vì vậy hãy tổ chức buổi tiệc theo phong cách của bạn. Cố thêm vào những suy nghĩ của bạn. Nó không quá khó để làm. Bạn có thể nhớ lại những việc đã xảy ra trong năm qua với những kỷ niệm đáng nhớ. Bạn đã có chuyến du lịch đáng yêu? hay chuyện cưới hỏi? chuyện thăng tiến trong công việc? hay gặp được người yêu? Bây giờ là lúc để gợi lại những kỷ niệm. Hãy hâm nóng những gì còn lạnh lẽo trong lòng. Hãy làm cho buổi tiệc của bạn thật lãng mạn và gây tác động mạnh mẽ. Hãy lên chủ đề cho buổi tiệc dựa vào những cảm giác của bạn.
+
+Điều quan trọng nhất là buổi tiệc của bạn phải mang tính cá nhân. Bạn sẽ phải ngạc nhiên vì chúng có tác động rất mạnh đến những vị khách của bạn. f','2016-12-09 14:51:24.326811',NULL,NULL,'2016-12-09 14:51:24.326863','action/images/son0002.jpg');
+INSERT INTO "core_action" VALUES(17,'Mình còn mừng tuổi ông bà được bao nhiêu lần nữa vậy ba?','Ông bà luôn cho ta sự ấm áp nhất, vì vậy bạn đừng quên dành thật nhiều tình cảm cho ông bà của mình không chỉ riêng vào các ngày lễ Tết. Mừng tuổi ông bà là một điều hết sức ý nghĩa đối với ông bà!
+Hãy để ông bà cảm nhận được sự quan tâm của con cháu dành cho mình, như vậy ông bà mới có thể vui khỏe để sống thật lâu cùng  với con cháu. Ở cái tuổi xế bóng này, sự cô đơn chính là nỗi ám ảnh sợ hãi lớn nhất, là một người cháu hiếu thảo bạn hãy xoa dịu sự cô đơn trong lòng tuy chỉ cần một cái quan tâm thật nhỏ bé nào đó. 
+Đừng quên điều này nhé !
+--------
+Crazylife.co','2016-12-09 14:59:35.579639',NULL,NULL,'2016-12-09 14:59:35.579702','action/images/duan-00002.jpg');
+INSERT INTO "core_action" VALUES(18,'Gửi những lời chúc chân thành đến cha mẹ','Tết là dịp của gia đình đoàn tụ đón giây phút giao thừa thiêng liêng... và cũng là dịp để gửi những lời chúc Tết, chúc mừng năm mới tới bố mẹ người đã sinh thành, nuôi dạy chúng ta. Cùng gửi đến những lời chúc năm mới tốt đẹp nhất đến bố mẹ kính yêu nào.
+
+Xem thêm tại
+Những lời chúc bố mẹ hay nhất{http://www.lamsao.com/nhung-loi-chuc-tet-bo-me-hay-nhat-p214a61005.html}','2016-12-09 15:00:50.162466',NULL,NULL,'2016-12-09 15:20:33.764587','action/images/Son0003.jpg');
+INSERT INTO "core_action" VALUES(19,'Tạo một căn nhà tràn ngập màu sắc với đèn và bóng nháy','Một căn phòng đầy ánh sáng đủ màu hay một khung cảnh ảo diệu sẽ hiện ra trong dịp tết này khi bạn sử dụng những đèn hay những bộ bóng nháy đủ màu
+  Tết là ngày để mọi người vui chơi sau một năm làm việc nên công việc trang hoàng nhà cửa sẽ không thể thiếu. Hãy chứng tỏ với mọi người là bạn là người sáng tạo đi nào. Không chỉ nhà cửa mình có thể dùng đèn náy trang trí cây mai, cây đào hay là cờ tổ quốc.
+
+hướng dẫn chi tiết {http://bellasofa.vn/khong-gian-lung-linh-voi-nhung-chiec-den-nhay-lap-lanh.html}','2016-12-09 15:18:21.289689',NULL,NULL,'2016-12-09 15:21:34.313074','action/images/manhhv2.jpg');
+INSERT INTO "core_action" VALUES(20,'Trông nồi bánh chưng ngày Tết','Ngày Tết cổ truyền hàng năm, có nhà ai là không có dăm cặp bánh chưng để cúng gia tiên và thưởng thức hương vị cổ truyền ? 
+Bánh chưng là nét văn hóa lâu đời mà có lẽ mãi mãi về sau cũng không thể biến mất trong tâm thức người Việt. Nét truyền thống đó sẽ còn mãi với hình ảnh nồi bánh chưng sôi sùng sục suốt đêm và những ánh lửa bập bùng, rạng rỡ trong đôi mắt người trông bánh. Ngồi bên bếp than hồng đến cay xè cả mắt, ăn khoai lang nướng đen xì những đôi môi, nghe bố kể chuyện tết xưa, ríu rít nói chuyện với anh chị em và thi thoảng còn ngủ gật nữa. Tảng sáng, mùi bánh đã thơm lừng, quyện trong hương thơm mùi già ngai ngái ngon tuyệt…','2016-12-09 15:19:50.231638','2016-12-09 15:19:24','2017-01-27 05:00:00','2016-12-09 15:19:50.231780','action/images/Khanh75123.jpg');
+INSERT INTO "core_action" VALUES(21,'"Mồng ba tết thầy"','Sang ngày mồng ba, người Việt thường dành riêng đi lễ Tết thầy giáo. Không chỉ có các học trò học chữ đến với thầy dạy chữ mà thầy được người Việt mở rộng nghĩa là những bậc có công dạy chữ lẫn dạy nghề, dạy cả những bộ môn nghệ thuật như dạy đàn, dạy hát…
+
+Người Việt có một câu thành ngữ chân phương, nôm na nói về vai trò người thầy là “Không thầy đố mày làm nên”. Công dưỡng dục thuộc về cha mẹ nhưng công lao dạy dỗ thành người hiểu biết, thành người có nghề nghiệp để sau này sinh sống và định vị cuộc đời mình trước nhân quần xã hội là người thầy. Với tinh thần tôn sư trọng đạo, người Việt quan niệm “Nhất tự vi sư, bán tự vi sư” nghĩa là dạy một chữ là thầy, nửa chữ cũng là thầy – để tỏ lòng tri ân người có công khai tâm cho con người bằng trí thức, bằng chữ.
+
+Đây cũng là dịp cho thầy trò cùng nhau hàn huyên tâm sự mọi chuyện tầng ấy năm xa trường. Vậy hãy mau mau qua chúc tết thầy cô đi nhé','2016-12-09 15:24:46.530601',NULL,NULL,'2016-12-09 15:24:46.530667','action/images/son0004.jpg');
+INSERT INTO "core_action" VALUES(22,'Tiễn chân ông táo về trời','Tục cúng Táo quân khởi nguồn từ bếp lửa, tượng trưng cho sự ấm no, sung túc, cung cấp sự sống cho con người bằng việc sưởi ấm, đun chín thức ăn. Đó cũng là hình tượng trong cõi tâm linh về ông Vua Bếp. Sau này, dựa trên các sự tích liên quan đến bếp lửa, dân gian mới sáng tạo ra câu chuyện "hai ông, một bà" nhưng vẫn có ý nghĩa mong muốn một cuộc sống no đủ, bếp gia đình lúc nào cũng rực lửa. 
+
+Cá chép là phương tiện duy nhất có thể đưa Táo Quân về trời. Bởi thế, vào ngày này, sau khi làm lễ xong, các gia đình đều cúng con cá chép rồi đem ra sông hay ra ao thả, ngụ ý “cá hóa long”, nghĩa là cá sẽ hóa rồng, vượt vũ môn, làm phương tiện cho Táo quân cưỡi về trời.
+
+Hãy đưa những chú cá chép đến nơi thuận lợi nhất để chuyến đi về trời của Ông Công, Ông Táo được suôn sẻ và may mắn nha bạn.','2016-12-09 15:29:46.038940',NULL,NULL,'2016-12-09 15:29:46.039000','action/images/Son0005.jpg');
+INSERT INTO "core_action" VALUES(23,'Gia đình bạn đã nhờ ai xông nhà tết năm nay chưa?','Người xông nhà, xông đất là người bước chân đầu tiên vào nhà sau phút giao thừa. Do muốn được may mắn, mọi người hay tìm người hợp tuổi đến xông nhà. Người mở hàng có thể là giám đốc công ty, những người thành đạt hoặc chính con cháu, hoặc tự bạn cũng có thể mở hàng cho nhà mình. Điều quan trọng khi chọn người xông nhà, mở hàng đầu năm, đó phải là người vui vẻ, rộng rãi. Tuyệt đối tránh thuê người đến mở hàng, xông đất chỉ để hợp tuổi khi không biết tính cách, năng lực... của họ. 
+
+Vì xông nhà có ý nghĩa lớn về tinh thần và tâm linh như vậy nên hãy lựa chọn đúng người bạn nhé.','2016-12-09 15:33:54.264258',NULL,NULL,'2016-12-09 15:33:54.264378','action/images/son0006.jpg');
+INSERT INTO "core_action" VALUES(24,'Đêm nay khai bút đầu năm, Cầu cho năm mới phơi phới điều may','Bạn đã thử cảm giác khai bút đầu năm ngay khi thời khắc chuyển giao năm mới với năm cũ chưa. 
+Cái cảm xúc ngồi nắn nót viết những dòng chữ đầu tiên của một năm thật là đặc biệt! Là bạn bạn sẽ viết gì đây ? Đó là những điều tuyệt vời của riêng bạn !
+
+Những gợi ý hay để khai bút đầu xuân nhiều ý nghĩa
+{http://tiin.vn/chuyen-muc/hoc/nhung-goi-y-hay-de-khai-but-dau-xuan-nhieu-y-nghia.html}','2016-12-09 15:36:56.020730',NULL,NULL,'2016-12-09 15:36:56.020796','action/images/duan-00003.jpg');
+INSERT INTO "core_action" VALUES(25,'Đưa mẹ đi chợ ngày Tết','Con vốn biết thời gian trôi qua nhanh, nhưng đôi khi ngẫm lại vẫn giật mình. Mới chớp mắt mà lại tết nữa rồi. Mẹ hay nói với con câu nói "bảo bối" từ ngoại: “Không có cái tết nào giống cái tết nào”.
+Năm con 7 tuổi, điều vui nhất vào dịp tết là được nhận lì xì, hay năm 17 tuổi là được đi chơi cùng bạn bè. Nhưng những năm con lớn hơn tuổi, con chỉ mong đến tết để được đi chợ cùng mẹ, phụ mẹ xách đồ. Đó là khoảnh khắc của bình yên, của ấm áp, của nơi con thuộc về, được nắm tay mẹ thật chặt, chen chúc giữa chợ tết, dù con không còn nhỏ bé gì...
+Mẹ cho con đi chợ với mẹ nhé!','2016-12-09 15:41:41.020669','2016-12-09 15:41:25','2017-01-27 05:00:00','2016-12-09 15:41:41.020849','');
+INSERT INTO "core_action" VALUES(26,'Bạn đã thử mời một người bạn ngoại quốc về ăn tết Việt chưa?','Tết nguyên đán là một nét văn hóa rất đặc biệt ở Châu Á mà chắc hẳn những người ngoại quốc, đặc biệt là người phương Tây muốn trải nghiệm sự đặc biệt có một không hai này. Hãy mời và tình nguyện giới thiệu cho họ về tết của quê hương Việt Nam của chúng ta. Điều này thật tuyệt vời phải không?','2016-12-09 15:45:12.758573',NULL,NULL,'2016-12-09 15:45:12.758936','action/images/son0007.JPG');
+INSERT INTO "core_action" VALUES(27,'Treo ảnh gia đình đón mừng năm mới','Cuối năm bên gia đình trang hoàng lại nhà cửa. Đây là lúc các thành viên trong gia đình bồi đắp thêm tình cảm gia đình gắn bó. Có thể nói, một bức ảnh gia đình chính là phương pháp đơn giản mà hiệu quả nhất để nhắc nhở  mọi người về tình thân, tình thương yêu giữa những thành viên dưới một mái nhà.
+Còn gì tuyệt vời hơn nếu Tết này cả nhà có thể chụp cùng nhau những bức ảnh gia đình rồi cùng chọn bức đẹp nhất treo trang trọng giữa phòng khách?
+Nếu là các bâc cha mẹ có thể để con cái tự tay lựa vài bức treo chỗ con cái muốn, treo thêm cả trong phòng riêng của con nữa, để nhắc nhở trẻ rằng dẫu có biến cố thăng trầm, con vẫn luôn có mẹ cha ở bên hỗ trợ. Đấy chính là tình máu mủ ruột rà mà một năm bận rộn mưu sinh có lẽ nhiều người quên lãng.
+Chi tiết xem thêm:
+Những cách treo ảnh đẹp {http://emdep.vn/nha-xinh/nhung-cach-treo-anh-vua-dep-vua-nghe-thuat-ban-se-muon-thu-ngay-20160511150431339.htm}','2016-12-09 16:04:57.921298','2016-12-01 16:00:23','2017-01-26 17:00:00','2016-12-09 16:04:57.921491','action/images/khanh1243.jpg');
+INSERT INTO "core_action" VALUES(28,'Em yêu !!! Tết này mình đi cầu duyên !','Tình yêu là một cảm xúc kì diệu mà thượng đế đã ban cho con người, khiến hai con người vốn khác nhau xích lại gần nhau hơn. 
+Càng lớn, con người càng mong muốn có được một tình yêu đẹp và bền lâu. Tuy nhiên tình yêu đâu phải ai cũng may mắn tìm được nhau. Có những người suốt cả cuộc đời này vẫn không tìm được thật sự cái gọi là tình yêu. Một số người đã có nó trong tay thì lại không phải ai cũng biết cách nắm giữ, vẫn để tuột mất nhau, tuột mất thứ tình cảm vốn đẹp đẽ đó chỉ trong một thời gian ngắn.
+Hãy làm những điều tuyệt tuyệt vời và ý nghĩa để xây đắp tình yêu đôi bạn !
+Cùng nhau đi cầu duyên là một điều cực kỳ ý nghĩa đối với những cặp tình nhân. Nếu năm này là lần đầu tiên cầu duyên của đôi bạn thì nó sẽ là một kỷ niệm cực kỳ đáng nhớ. 
+
+Có rất nhiều nơi để các bạn có thể đến cầu duyên và cũng là một điểm đến trong chuyến du xuân như: Chùa Hà (Hà Nội)
+Chùa Duyên Ninh (Ninh Bình)
+Đền Chử Đồng Tử (Hưng Yên)
+Chùa Bát Bửu Phật Đài (TP. HCM)
+...
+Xem thêm {http://diadiemdulich.com/diem-den/5-ngoi-chua-cau-duyen-noi-tieng-nhat-viet-nam.html}','2016-12-09 16:17:01.594384',NULL,NULL,'2016-12-09 16:17:01.594486','action/images/duan-00004.jpg');
+INSERT INTO "core_action" VALUES(29,'Đừng quên lập mục tiêu cho năm mới nhé','Đến hẹn lại lên, những ngày cuối cùng của năm cũ luôn là khoảng thời gian lý tưởng để chúng ta nghiền ngẫm về những điều đã qua và bắt đầu suy nghĩ về những mục tiêu cụ thể cho sự nghiệp trong năm mới.
+
+Theo phản ứng tự nhiên khi nói đến những mục tiêu mới trong công việc, mọi người luôn có thói quen suy luận rằng đó chính là thay đổi công việc. Không hẳn thế, tìm một vị trí mới hoặc tham gia một lĩnh vực nghề nghiệp mới cũng chỉ là một trong vô số các mục tiêu. Vẫn còn có những điều khác, bao gồm trong cả công việc lẫn cuộc sống mà bạn cần phải vạch ra kế hoạch và xác lập mục tiêu cho mình trong năm mới.
+
+Sau đây là một vài gợi ý giúp bạn có từng bước điều chỉnh công việc và cuộc sống thêm phần thuận lợi để hướng đến ước mơ “ vạn sự như ý” ở năm Bính Tuất
+
+Năm mới bắt đầu từ những bước thay đổi nhỏ. Nếu là một người luôn tham công tiếc việc, luôn quay cuồng với hàng đống trách nhiệm và bao giờ cũng trở vể muộn trong suốt bảy ngày trong tuần thì bạn nên tập thay đổi thói quen này dần dần để tránh rước vào mình cảm giác quá tải, mệt mỏi. Hãy bắt đầu thay đổi từ những bước nhỏ.
+
+Ví dụ như: bạn sẽ trở về nhà sớm hơn 30 phút mỗi ngày so với năm cũ, còn nếu bạn vẫn thường xuyên mang việc về nhà thì nên tự đặt ra nguyên tắc “một ngày không công việc trong tuần”. Sự thay đổi nhỏ này sẽ giúp bạn cảm thấy công việc trở nên nhẹ nhàng và cuộc sống thì dễ chịu hơn nhiều so với năm cũ.
+
+Đọc sách nhiều hơn. Hãy dành thời gian đọc sách nhiều hơn, xen kẽ các tài liệu liên quan đến công việc là những tác phẩm giải trí. Dành thời gian đọc nhiều hơn sẽ giúp bạn vừa tiếp thu được những kiến thức mới cần cho nghề nghiệp lại vừa có những giây phút thư giãn bổ ích.
+
+Nếu thường xuyên đi lại bằng các phương tiện giao thông công cộng, bạn nên nhớ luôn để sẳn một quyển sách trong cặp đi làm, hãy tận dụng mọi thời gian qúy báu có được một cách có ý nghĩa bằng việc đọc sách nhiều hơn.
+
+Tham gia các khoá huấn luyện thể thao. Việc này sẽ rất có ích nếu nghề nghiệp của bạn đòi hỏi giao tiếp thường xuyên và yêu cầu cao về ngoại hình. Chọn một môn thể thao yêu thích và phù hợp ghi danh tham gia ngay lập tức. Rèn luyện thân thể không chỉ giúp bạn có một ngoại hình cân đối hơn mà còn giúp bạn có thêm sức khoẻ để đeo đuổi công việc đến cùng.
+
+Cập nhật thông tin mới cho resume. Bạn phải thường xuyên cập nhật những thông tin mới nhất cho resume của mình với những chi tiết cụ thể và rõ ràng. Công việc này sẽ giúp bạn có cơ hội nhìn lại và đánh giá những việc đã làm được, xem lại coi bạn đã thực hiện đúng theo kế hoạch đã định hay không và hơn nữa là sẽ có thêm cơ sở để thiết lập những mục tiêu mới cho mình.
+
+Lên kế hoạch cho những kỳ nghỉ trong năm. Điều này có thể làm cho bạn thấy có vẻ buồn cười. Tuy nhiên, lên kế hoạch trước cho bất cứ công việc gì luôn luôn không thể là chuyện thừa.
+
+Trong thời gian làm việc sắp tới, chúng ta sẽ vô cùng bận rộn, vì thế sẳn sàng gác lại chuyện nghỉ ngơi táo tạo năng lượng nếu chưa có một kế hoạch cụ thể đi đâu làm gì. Làm việc không nghỉ ngơi sẽ không giúp công việc thêm phần hiệu quả mà ngược lại còn đẩy bạn đến trạng thái mệt mỏi, kiệt quệ năng lực.
+
+Một trường hợp khác nữa là nếu bạn có ý định dồn hết phép lại một lần để “chơi” cho đã thì cũng nên thay đổi suy nghĩ, vì bạn sẽ lập tức cảm thấy ngán việc khi quay lại văn phòng sau một thời gian nghỉ ngơi quá dài.
+
+Trau dồi kỹ năng giao tiếp. Giao tiếp là một kỹ năng cần thiết cho mọi nghề nghiệp với những cấp độ khác nhau, đó chính là sức mạnh thu hút sự chú ý và thiết lập mối quan hệ với mọi người.
+
+Thành công chỉ đến được khi bạn có đã xác định được những mục tiêu cụ thể và kế hoạch thực hiện rõ ràng. Với những mục tiêu nhỏ gợi ý trên đây, hy vọng bạn sẽ thành công to trong năm mới.
+
+Nguồn:Dân trí (2006)','2016-12-09 16:39:55.882142',NULL,NULL,'2016-12-09 16:39:55.882209','action/images/duan-00005.jpg');
+INSERT INTO "core_action" VALUES(30,'Phong bì nhỏ, bỏ vào bao, trao người lớn','Trở vào nhà sau tràng pháo hoa rực rỡ báo hiệu thời khắc chuyển giao năm cũ - năm mới, cũng là khi bố mẹ thắp hương cúng xong bàn thờ gia tiên. Có giây phút nào hai chữ “gia đình” lại thiêng liêng  thế chăng? Tết này, bạn sẽ mừng tuổi cho bố mẹ mình chứ?
+
+Phong bao đỏ mang theo cả tấm lòng người con với lời cầu chúc ông bà, bố mẹ luôn mạnh khỏe, hạnh phúc bên con cháu. Đặc biệt với những bạn cả năm ít có thời gian bên gia đình, tại sao làm nên những khoảnh khắc thật đáng nhớ? Hãy cùng tấm lì xì nhỏ trao gửi tất cả lời cảm tạ chân thành tới bậc thân sinh vì đã có một năm bươn chải kiếm sống và lo lắng cho bạn. Hãy cho ông bà được cười thật tươi vì đứa cháu của mình đã thật sự trưởng thành. Hãy gieo niềm tin yêu và hi vọng trong gia đình rằng năm mới của bạn sẽ là một năm thành công hơn tất cả những gì họ mong đợi.
+
+Một hành động nhỏ, nhưng ý nghĩa biết chừng nào!','2016-12-10 01:40:03.949272',NULL,NULL,'2016-12-10 07:09:21.499662','action/images/son0008.jpg');
+INSERT INTO "core_action" VALUES(31,'Bạn đã bao giờ kinh doanh hoa vào dịp tết chưa?','Mùa xuân là thời điểm trăm hoa tô điểm cho trời đất và cho lòng người. Chẳng biết tự bao giờ, việc ra chợ Tết mua bán hoa, ngắm hoa đã trở thành nét đẹp văn hóa người Việt. Vậy tại sao bạn không thử góp một chút Xuân bằng cách bày lên những đóa hoa tươi đẹp rực rỡ và đem bán cho mọi người?
+Thử tưởng tượng rằng bạn là cô chủ nhỏ của những cành hồng đỏ, hồng vàng, hồng nhung, hồng trắng, hồng thắm, nụ vẫn còn e ấp như muốn níu giữ mùa đông; những đóa cúc vàng cúc trắng cánh nhỏ li ti mà đầy thanh cao, sang trọng; này đây nàng lưu ly he hé những cánh kiều diễm, còn kia là dáng tim tím của những bông hoa cẩm chướng thật tươi khi gió Xuân về, … Đứng giữa hàng hoa như đang trôi trong một dòng sông thơm ngát đầy sắc màu, để thấy lòng mình thật tươi trẻ, để thấy mình đang cho đi những hân hoan của mùa Xuân và sẻ chia khát khao được mang thiên nhiên vào nhà của mọi người.
+Việc bán hoa tưởng chừng dễ, nhưng các bạn hãy tự chuẩn bị cho mình những tips giúp công việc hiệu quả hơn. Thời gian sắp xếp hợp lí, thường là mười ngày cuối tháng Chạp. Bên cạnh đó,  tìm hiểu trước về thị trường và chuẩn bị kĩ càng về vốn, nguồn nhập hàng, địa điểm và cách thức nhập, bán, …. cực kì quan trọng. Hỏi những người đã từng làm giống bạn cũng là một cách rất hay. Hãy cân nhắc sao cho vừa vặn và cùng tận hưởng thành quả mùa Xuân thôi nào!','2016-12-10 01:43:06.972773',NULL,NULL,'2016-12-10 07:12:26.030773','action/images/son0009.jpg');
+INSERT INTO "core_action" VALUES(32,'Mua sách đầu năm','Hãy đến hiệu sách và chọn ngay một quyển sách về lĩnh vực mà bạn yêu thích, một quyển cẩm nang du lịch, hoặc chỉ đơn giản là một quyển truyện tranh,... Hãy tận hưởng một niềm vui mới mỗi ngày bằng cách đọc những gì bạn yêu thích.
+Còn gì tuyệt vời hơn, bạn nhận được một lời chúc chứa chan tình cảm trong cuốn sách của một ai đó tặng mình. Cũng còn hạnh phúc nào hơn khi ta dành tặng bố mẹ cùng người thân yêu những cuốn sách mang thông điệp yêu thương đầu năm mới.
+Chi tiết tham khảo thêm:
+Tựa một số cuốn sách hay đọc ngày Tết {https://www.facebook.com/notes/tikivn/12-t%E1%BB%B1a-s%C3%A1ch-hay-%C4%91%E1%BB%8Dc-d%E1%BB%8Bp-t%E1%BA%BFt/184508731572840/}
+Các website mua, đọc sách online hay{https://10hay.com/top-website/top-10-website-mua-sach-doc-sach-online-tot-nhat-viet-nam.html}','2016-12-10 02:29:38.532125','2016-11-30 17:00:00','2017-02-28 02:15:29','2016-12-10 02:29:38.532357','action/images/khanhdz1234.jpg');
+INSERT INTO "core_action" VALUES(33,'Cùng bạn bè tham gia một trận thể thao khai xuân đầu năm','Dịp đầu xuân mới luôn gắn liền với những hoạt động " khai xuân".  Đây là một công việc ý nghĩa với mong muốn có được một năm mới may mắn, tốt đệp. Thể thao là một trong những hoạt động thu hút được rất đông người tham gia sau những những ngày nghỉ tết, vừa để tèn luyện sức khỏe và cũng là cơ hội gặp gỡ giao lưu bạn bè đầu năm
+
+Bạn có đang sở hữu cho mình những đồng đội tuyệt vời cùng chơi môn thể thao nào đó. Vậy thì còn chờ gì nữa mà không đặt lịch cho đội mình ngay nhỉ?','2016-12-10 02:42:55.985209',NULL,NULL,'2016-12-10 02:42:55.985273','action/images/son0010.jpg');
+INSERT INTO "core_action" VALUES(34,'Hát cho cả nhà nghe đêm giao thừa','Đêm giao thừa là khoảng thời gian thiêng liêng nhất của năm khi cả gia đình sum họp, chuẩn bị đón năm mới với những điều tốt lành, may mắn sẽ đến và tiễn trừ năm cũ với những điều không may đã qua.
+Bên cạnh những chùm phá hoa, mâm cỗ truyền thống, những lời chúc, và những chiếc lì xì may mắn. Năm nay sẽ đặc biệt hơn là bạn sẽ chuẩn bị thêm một bài hát ý nghĩa dịp Tết và hát dành tặng các thành viên trong gia đình mình.
+Chi tiết xem thêm:
+Những bài hát cho đêm giao thừa {http://nhac.vn/playlist-nhung-bai-hat-cho-dem-giao-thua-vol-1-plB4P37?st=sorzJAN}','2016-12-10 02:46:18.634307','2016-11-30 17:00:00','2017-01-26 17:00:00','2016-12-10 02:46:18.634856','');
+INSERT INTO "core_action" VALUES(35,'Hóa vàng ngày tết bên gia đình','Theo truyền thống xưa, sau khi mời Tổ tiên về dự 3 ngày Tết với con cháu vào ngày 30 Tết (nếu tháng thiếu thì vào ngày 29 Tết), đến ngày mùng 3 Tết hoặc ngày khai hạ mồng bảy Tết, là ngày cuối cùng, tiệc xuân đã mãn, con cháu lại cáo lễ để tiễn đưa Tổ tiên trở về âm cảnh.Lễ này, tục gọi là “đưa ông bà”, lễ hóa vàng cho Tổ tiên, hay lễ tạ năm mới.
+
+Theo một số chuyên gia văn hóa phương Đông, việc chọn ngày làm lễ hóa vàng tùy thuộc vào mỗi gia đình, chủ yếu từ mùng 3 đến khoảng mùng 10 Tết Nguyên đán. Điều quan trọng nhất là phải có lễ tạ gia tiên, gia thần và chư vị thánh thần, phật. Theo quan niệm dân gian, có lễ tạ thì tấm lòng của chủ nhà mới được người âm chứng giám. Lễ vật dâng cúng trong lễ tạ năm mới gồm: Nhang, hoa, ngũ quả, trầu cau, rượu, đèn nến, bánh kẹo, mâm lễ mặn hoặc chay cùng các món ăn ngày Tết đầy đủ, tinh khiết.
+
+Bạn và gia đình đã định làm lễ hóa vàng vào ngày nào chưa?','2016-12-10 02:52:47.260965',NULL,NULL,'2016-12-10 02:52:47.261032','action/images/Son0011.jpg');
+INSERT INTO "core_action" VALUES(36,'Chia sẻ những bức ảnh tết trên quê hương mình với bạn bè','Mỗi một nơi trên tổ quốc Việt Nam lại có một số phong tục, những lễ hội riêng trong địp tết. Cùng nhau chia sẻ những bức ảnh, những câu chuyện đầu xuân sẽ giúp cho mình và bạn bè biết nhiều hơn về tập tục của các vùng khác nhau,  qua đó làm giàu thêm tình yêu đất nước.','2016-12-10 07:19:25.861310',NULL,NULL,'2016-12-10 07:19:25.861369','action/images/son0012a.jpg');
+INSERT INTO "core_action" VALUES(37,'Tự tay làm lịch Tết đón năm mới','Mỗi khi năm mới đến mọi người đều cần sắm cho mình những cuốn sổ tay làm lịch, lịch treo tường, lịch để bàn mới. Những bộ lịch handmade hoặc lịch để bàn, lịch dưới dạng sổ tay không chỉ rất đẹp và phong cách khi trang trí nhà, phòng riêng. Bộ lịch handmade còn là món quà tết hoàn hảo nhân dịp năm mới tết đến.
+
+Có rất nhiều mẫu lịch handmade để bàn, mẫu lịch treo tường hoặc thậm chí những quyển lịch làm theo album ảnh của chính bạn. Nguyên liệu để làm một cuốn lịch handmade cũng vô cùng đơn giản và dễ kiếm. Ngoài ra bạn có thể tận dụng giấy bọc quà, album ảnh, sổ cũ, thậm chí thêu chữ thập lên giấy, in trên vải vintage bằng các bộ con dấu handmade… Rất độc đáo phải không?
+
+Chi tiết xem thêm:
+Hướng dẫn cách làm các lịch handmade {https://www.youtube.com/watch?v=PTF-96zADNA&list=PLLhVqN6MdbbKbbKtv8zAgBLYTFbExc_MX&index=2}','2016-12-10 07:34:51.818908','2016-12-10 07:34:32','2017-01-27 07:34:35','2016-12-10 07:34:51.819056','action/images/khanh1a23.jpg');
+INSERT INTO "core_action" VALUES(38,'Cùng người yêu đi du xuân, lễ hội cầu may','Du lịch là cách tốt nhất để giải trí, thư giãn tinh thần và "hâm nóng" tình yêu đôi lứa. Nếu bạn dự định cùng “người ấy” du xuân dịp Tết này, hãy tăng thêm phần lãng mạn cho chuyến vi vu bằng cách đơn giản sau đây.
+
+Tùy vào sở thích của người yêu mà bạn chọn điểm đến yên tĩnh, thanh bình hay náo nhiệt. Hãy lên danh sách các địa chỉ hấp dẫn nhất rồi sau đó quyết định nơi các bạn thích đến nhất. Thông thường, biển cả, núi rừng, sông nước, ao hồ...là những địa điểm lý tưởng nhất để bạn viếng thăm.
+
+Nếu kinh tế không cho phép, hai bạn cũng có thể chọn mua tour ít điểm đến, ngắn ngày hoặc chọn những nơi có nhiều cây xanh, không khí trong lành và yên tĩnh để tạo cảm giác thú vị cho chuyến đi của mình. Còn gì tuyệt vời hơn khi được cùng nhau thưởng thức một bữa ăn nhẹ ngoài trời trên nền cỏ xanh mướt, hay đi dạo mát ở bãi biển dịu êm...Tất cả những điều ấy sẽ khiến hai bạn thêm hạnh phúc và gắn bó hơn.
+
+Nghe nhạc cùng nhau cũng là cách hay để khơi gợi lại cảm xúc yêu thương giữa hai người. Do đó, dù mua tour hay tự lái xe đi du lịch, các bạn đừng quên chuẩn bị cho mình một đĩa CD với những bản nhạc yêu thích, gắn liền với kỷ niệm đáng nhớ của hai người.
+
+Trên đường khám phá vùng đất mới, nếu bắt gặp chỗ nào có cảnh đẹp và lãng mạn, hai bạn đừng nên bỏ qua cơ hội chụp hình trong bối cảnh thiên nhiên đầy thơ mộng. Có thể nói, cùng nhau trải nghiệm hạnh phúc dưới khung cảnh bình minh và hoàng hôn là những ý tưởng tuyệt vời nhất để ghi lại giây phút hạnh phúc bên nhau mà các "cặp đôi hoàn hảo" sẽ không thể nào quên được.
+
+Nếu muốn tạo niềm vui bất ngờ cho người mình yêu, bạn cũng có thể để một món quà nhỏ ở đâu đó trong hành lý của người ấy. Sau khi tình cờ phát hiện ra nó, chắc chắn “gấu” của bạn sẽ vô cùng cảm động trước tình yêu chân thành từ bạn.
+
+Bạn cũng nên yêu cầu nhà tour đặt riêng hoặc tự đặt bàn trước cho bữa tối lãng mạn tại một nhà hàng ở điểm đến. Còn gì tuyệt vời hơn khi được cùng nhau thưởng thức các món ăn ngon, nâng ly chúc mừng tình yêu và nghỉ ngơi thư giãn sau chuyến đi dài.','2016-12-10 07:37:03.175924',NULL,NULL,'2016-12-10 07:37:03.175986','action/images/Son0013.jpg');
+INSERT INTO "core_action" VALUES(39,'Dành chút khoảng riêng ngày tết cho bản thân tự do làm những gì mình thích','Tết không chỉ cho chúng ta thời gian để quây quần bên gia đình, họ hàng, bạn bè. Tết còn cho ta thời gian để thực hiện những ước muốn nhỏ nhoi, hay theo đuổi một đam mê nho nhỏ. Bởi vậy dù có bận rộn hày nhiều lịch hẹn thế nào, bạn hãy nhớ dành ra một ít thời gian và không gian riêng để tận hưởng cuộc sống này bạn nhé.','2016-12-10 07:47:59.626527',NULL,NULL,'2016-12-10 07:47:59.626589','action/images/son0014.jpg');
+INSERT INTO "core_action" VALUES(41,'Bạn đã biết mình sẽ mặc gì vào những ngày đầu xuân chưa?','Ngày Tết, bạn tạm rời xa những bộ công sở gò bó để thể hiện gu thời trang của mình. 3 gợi ý dưới đây giúp bạn xinh tươi, rạng rỡ hơn trong dịp năm mới.
+
+Những bộ đồ thanh lịch, sang trọng là lựa chọn an toàn cho bạn khi sum họp gia đình, khi đi chúc Tết họ hàng, người thân. Vì thế, một chiếc váy liền và áo choàng - cách mix đồ kinh điển - sẽ giúp bạn ghi điểm. Trong quan niệm của người Việt thì màu đỏ mang lại may mắn, vì thế, trang phục có màu đỏ, hoặc màu sắc tươi sáng cũng khiến những ngày đầu năm thêm tươi vui, rộn ràng.
+
+Thay vì bận rộn tới tấp với công việc, ngày Tết là dịp bạn có thể thảnh thơi đi chơi đây đó. Lúc này, chân váy xòe, hoặc váy mullet và áo cardigan nhẹ nhàng khiến bạn như mang theo làn gió xuân tươi trẻ bên mình. Một đôi giầy bệt cũng giúp bạn thoải mái, thư thái hơn.
+
+Chi tiết xem thêm{http://giaitri.vnexpress.net/tin-tuc/thoi-trang/lam-dep/3-go-i-y-trang-phu-c-cho-nga-y-te-t-2422970.html}','2016-12-10 07:52:47.456258',NULL,NULL,'2016-12-10 08:05:10.252208','action/images/son0015.jpg');
+INSERT INTO "core_action" VALUES(42,'Đi chợ hoa ngày Tết','Khám phá chợ hoa ngày Tết là một trong những nét độc đáo của người dân Việt Nam mỗi dịp Tết đến xuân về. Dạo qua chợ hoa ngày Tết để cảm nhận được không khí xuân đang về, chụp ảnh làm kỉ niệm hay lựa chọn những chậu hoa đẹp nhất về trang trí cho gia đình ngày Tết.
+Chi tiết xem thêm:
+Cách chọn hoa-cây cảnh ngày tết{https://www.youtube.com/watch?v=R1W-6sxrs6Y}
+Các chợ hoa nổi tiếng Hà Nội{http://dulich.vnexpress.net/tin-tuc/viet-nam/ha-noi/6-cho-hoa-tet-noi-tieng-cua-ha-noi-3352276.html}
+Các chợ hoa nổi tiếng Sài Gòn{http://dulich9.com/nhung-cho-hoa-ngay-tet-noi-tieng-o-sai-gon-nhon-nhip-va-doc-dao.html}','2016-12-10 08:06:33.493257','2016-11-30 17:00:00','2017-01-30 17:00:00','2016-12-10 08:06:33.493398','action/images/khanhzc1.jpg');
+INSERT INTO "core_action" VALUES(43,'Một chuyến đi chơi xa ngày tết cùng đám bạn cũ','Một chuyến đi vào đầu năm mới sẽ làm tinh thần thêm sảng khoái hơn rất nhiều, khi đi cùng đám bạn cũ mọi người có thể nói chuyện với nhau nhiều hơn và kể cho nhau nghe những câu chuyện một năm qua
+  Đầu năm thường những địa điểm được chọn du lịch nhiều nhất là chùa chiền hay là những địa điểm tâm linh, nhưng với nhịp sống xã hội hay là phù hợp với túi tiền thì cách đi là của bạn
+  Có nhiều típ để đi du lịch đầu năm mọi người tham khảo qua nhé, nhớ hãy làm những vị khách thật văn minh và đem cho và nhận tất cả những niềm vui năm mới.
+
+{http://dulich9.com/du-lich-tet-nguyen-dan-2017-nen-di-dau-lay-loc-dau-nam.html}','2016-12-10 08:10:31.623242',NULL,NULL,'2016-12-10 08:10:31.623329','action/images/du-lich-tet-trong-nuoc2.jpg');
+INSERT INTO "core_action" VALUES(44,'Tập tành kinh doanh ngày tết','Với người trẻ thì ai cũng có máu kinh doanh và kiếm tiền để tiêu xài trong dịp tết. Hãy thứ tự đứng ra hoặc cùng với mấy đứa bạn hùn vốn kinh doanh một thứ nào đó đi nào. Việc buôn bán sẽ mang cho bạn nhiều kinh nghiệm hay ho trong cuộc sống và học tập.
+  Bán hoa, bán quần áo, bánh kẹo, quần áo... hãy thử làm ông bà chủ thôi nào
+
+chi tiết xem tại {http://www.phoithai.com/kinh-doanh-gi-ngay-tet-von-it-lai-nhieu.html}','2016-12-10 08:26:04.889218',NULL,NULL,'2016-12-10 08:26:04.889319','action/images/Manhhv4.jpg');
+INSERT INTO "core_action" VALUES(45,'Đi từ thiện vùng cao dịp giáp Tết','Thật hạnh phúc và may mắn cho những ai được quây quần bên gia đình, được ăn ngon mặc ấm. Nhưng đâu đó bên cạnh chúng ta vẫn còn những mảnh đời kém may mắn, những hoàn cảnh khó khăn và không phải ai cũng được hưởng những cái điều giản dị đó.
+Rủ bạn bè xung quanh cùng quyên góp quần áo cũ không dùng tới hay, ủng hộ một phần tài tài chính cá nhân dịp cuối năm hay chỉ là những cuốn sách cũ . Chuẩn bị tươm tất những món quà ý nghĩa muốn gửi, lên đường bắt đầu một chuyến thiện nguyện đầy ý nghĩa dịp giáp Tết nào!
+Chi tiết xem thêm:','2016-12-10 08:53:27.247408','2016-12-01 08:53:03','2017-01-31 11:00:00','2016-12-10 08:53:27.247546','action/images/khanhok1.JPG');
+INSERT INTO "core_action" VALUES(46,'Chụp ảnh đại gia đình vào năm mới','Tết là dịp để gia đình đoàn viên, mọi người cùng sum họp đầy đủ cũng là dịp để đánh dấu mọi người thêm tuổi mới và nhìn lại những thay đổi của một năm đã qua. Công nghệ khoa học phát triền không chỉ làm việc có những bức ảnh dễ dàng hơn mà còn lưu vào để mỗi lúc nhớ nhà mình có thể đem ra ngắm.
+  Một bức ảnh đại gia đình đầu năm là một việc cần thiết để lưu giữ những kỉ niệm đẹp đẽ ngày tết. Có những tấm ảnh đã lâu mình chưa nhìn lại hay có bức ảnh được treo trọng trên tường nhà những bức ảnh như thế đều là những kỉ niệm, những sự thay đổi đáng nhớ của ngày tết. Mỗi khi ngắm nhìn những bức ảnh tình yêu thương gia đình lại ngập tràn và nhớ về những ngày tết năm nao.','2016-12-10 08:53:32.334533',NULL,NULL,'2016-12-10 08:53:32.334594','action/images/manhhv3.jpg');
+INSERT INTO "core_action" VALUES(47,'Ngắm nhìn phố phường ngày tết vào buổi sáng sớm','Những buổi sáng sớm trong những ngày tết với cái khí trời se se lạnh, cải nét vắng vẻ chưa đủ rộn rã như lúc mặt trời lên đến đỉnh đầu cộng với những tia sáng lấp ló của ông mặt trời lên thật đang là một khung cảnh yêu bình cho chúng ta chiêm ngưỡng. Và đặc biệt ở những vùng quê, xa xa đâu đó có tiếng rao muối, rao vôi vọng lại...','2016-12-10 08:56:16.767118',NULL,NULL,'2016-12-10 08:56:16.767169','action/images/son0017.jpg');
+CREATE TABLE "core_actionpicture" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "picture" varchar(100) NOT NULL, "actionid_id" integer NOT NULL REFERENCES "core_action" ("id"));
+CREATE TABLE "core_actionreflink" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "link" text NOT NULL, "actionid_id" integer NOT NULL REFERENCES "core_action" ("id"));
+CREATE TABLE "core_activity" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "activity_type" varchar(1) NOT NULL, "date" datetime NOT NULL, "feed" integer NULL, "question" integer NULL, "answer" integer NULL, "user_id" integer NOT NULL REFERENCES "auth_user" ("id"));
+CREATE TABLE "core_comment_childcomment" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "from_comment_id" integer NOT NULL REFERENCES "core_comment" ("id"), "to_comment_id" integer NOT NULL REFERENCES "core_comment" ("id"));
+CREATE TABLE "core_notification" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "createdDate" datetime NOT NULL, "notificationtype" varchar(1) NOT NULL, "isread" bool NOT NULL, "action_id" integer NOT NULL REFERENCES "core_action" ("id"), "comment_id" integer NOT NULL REFERENCES "core_comment" ("id"), "inviation_id" integer NOT NULL REFERENCES "core_invitation" ("id"));
+CREATE TABLE "core_userprofile" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "date" datetime NOT NULL, "gender" varchar(1) NOT NULL, "occupation" varchar(100) NOT NULL, "address" varchar(200) NOT NULL, "createdDate" datetime NOT NULL, "last_active" datetime NOT NULL, "birthday" datetime NULL, "user_id" integer NOT NULL UNIQUE REFERENCES "auth_user" ("id"));
+INSERT INTO "core_userprofile" VALUES(1,'2016-12-09 01:57:51.802349','','','','2016-12-09 01:57:51.802413','2016-12-09 01:57:51.802436',NULL,3);
+INSERT INTO "core_userprofile" VALUES(2,'2016-12-09 02:28:12.300266','','','','2016-12-09 02:28:12.300332','2016-12-09 02:28:12.300356',NULL,4);
+INSERT INTO "core_userprofile" VALUES(3,'2016-12-09 02:38:36.573591','','','','2016-12-09 02:38:36.573660','2016-12-09 02:38:36.573685',NULL,5);
+INSERT INTO "core_userprofile" VALUES(4,'2016-12-09 02:56:52.766525','','','','2016-12-09 02:56:52.766591','2016-12-09 02:56:52.766614',NULL,6);
+INSERT INTO "core_userprofile" VALUES(5,'2016-12-09 10:27:14.005293','','','','2016-12-09 10:27:14.005344','2016-12-09 10:27:14.005386',NULL,9);
+CREATE TABLE "core_invitation" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "content" text NOT NULL, "isaccept" bool NOT NULL, "createDate" datetime NOT NULL, "fromuser_id" integer NOT NULL REFERENCES "core_userprofile" ("id"), "touser_id" integer NOT NULL REFERENCES "core_userprofile" ("id"));
+CREATE TABLE "core_comment" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "content" text NOT NULL, "createDate" datetime NOT NULL, "modified" datetime NOT NULL, "active" bool NOT NULL, "commentby_id" integer NOT NULL REFERENCES "core_userprofile" ("id"), "commentin_id" integer NOT NULL REFERENCES "core_action" ("id"));
+CREATE TABLE "core_action_likeby" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "action_id" integer NOT NULL REFERENCES "core_action" ("id"), "userprofile_id" integer NOT NULL REFERENCES "core_userprofile" ("id"));
+CREATE TABLE "core_action_listComment" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "action_id" integer NOT NULL REFERENCES "core_action" ("id"), "comment_id" integer NOT NULL REFERENCES "core_comment" ("id"));
+CREATE TABLE "authtoken_token" ("key" varchar(40) NOT NULL PRIMARY KEY, "created" datetime NOT NULL, "user_id" integer NOT NULL UNIQUE REFERENCES "auth_user" ("id"));
+CREATE TABLE "account_emailconfirmation" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "created" datetime NOT NULL, "sent" datetime NULL, "key" varchar(64) NOT NULL UNIQUE, "email_address_id" integer NOT NULL REFERENCES "account_emailaddress" ("id"));
+CREATE TABLE "account_emailaddress" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "verified" bool NOT NULL, "primary" bool NOT NULL, "user_id" integer NOT NULL REFERENCES "auth_user" ("id"), "email" varchar(254) NOT NULL UNIQUE);
+CREATE TABLE "django_site" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(50) NOT NULL, "domain" varchar(100) NOT NULL UNIQUE);
+INSERT INTO "django_site" VALUES(1,'example.com','example.com');
+INSERT INTO "django_site" VALUES(2,'crazylife.co','crazylife.co');
+CREATE TABLE "socialaccount_socialapp_sites" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "socialapp_id" integer NOT NULL REFERENCES "socialaccount_socialapp" ("id"), "site_id" integer NOT NULL REFERENCES "django_site" ("id"));
+CREATE TABLE "socialaccount_socialtoken" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "token" text NOT NULL, "token_secret" text NOT NULL, "expires_at" datetime NULL, "account_id" integer NOT NULL REFERENCES "socialaccount_socialaccount" ("id"), "app_id" integer NOT NULL REFERENCES "socialaccount_socialapp" ("id"));
+CREATE TABLE "socialaccount_socialapp" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "provider" varchar(30) NOT NULL, "name" varchar(40) NOT NULL, "client_id" varchar(191) NOT NULL, "key" varchar(191) NOT NULL, "secret" varchar(191) NOT NULL);
+CREATE TABLE "socialaccount_socialaccount" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "provider" varchar(30) NOT NULL, "uid" varchar(191) NOT NULL, "last_login" datetime NOT NULL, "date_joined" datetime NOT NULL, "user_id" integer NOT NULL REFERENCES "auth_user" ("id"), "extra_data" text NOT NULL);
+CREATE TABLE "auth_user" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "password" varchar(128) NOT NULL, "last_login" datetime NULL, "is_superuser" bool NOT NULL, "first_name" varchar(30) NOT NULL, "last_name" varchar(30) NOT NULL, "email" varchar(254) NOT NULL, "is_staff" bool NOT NULL, "is_active" bool NOT NULL, "date_joined" datetime NOT NULL, "username" varchar(150) NOT NULL UNIQUE);
+INSERT INTO "auth_user" VALUES(2,'pbkdf2_sha256$24000$8DO9u91NftwC$tYnGdgzhHSWXbCGKw9MUEgxtMjBTkPm1hQQ1HJwHveA=','2016-12-09 13:04:26',1,'','','khanhph@crazylife.co',1,1,'2016-12-08 15:32:34','khanhph');
+INSERT INTO "auth_user" VALUES(3,'pbkdf2_sha256$24000$jL2k2Agg5TLZ$wKDOsPdfY1HsRVzkNeV3hamR+xgeMIlPsLKVbcJ79B8=',NULL,0,'','','None',0,1,'2016-12-09 01:57:51.666963','None');
+INSERT INTO "auth_user" VALUES(4,'pbkdf2_sha256$24000$MNJcBsKLZyTg$Hgrac7KtHgA8kqvnqEZ2cYCkl5kwiy2YBVILwz+n58E=',NULL,0,'','','namnp123@crazylife.co',0,1,'2016-12-09 02:28:12.150413','abcdede');
+INSERT INTO "auth_user" VALUES(5,'pbkdf2_sha256$24000$Zlze3ujJxtRd$fhSm4wIMmX+mLeJ6c/DjnQG9V2/3zhfcSi6YmxGfHS0=',NULL,0,'','','namnp123@crazylife.com',0,1,'2016-12-09 02:38:36.453811','abcd');
+INSERT INTO "auth_user" VALUES(6,'pbkdf2_sha256$24000$i3WcxRtTio5M$QPaZx8Bh9OcNLHTqm2D9YsWd8YRn2lP+1xUUwHFbNzc=',NULL,0,'','','namnp1@crazylife.com',0,1,'2016-12-09 02:56:52.622279','abcdefg');
+INSERT INTO "auth_user" VALUES(7,'pbkdf2_sha256$24000$BZPVOZILDdPe$186as8iOLq+ljTUO+Bvb1pARx8J8Jf5Z3C5QAGRa8KA=','2016-12-09 13:42:18.821763',1,'','','namnp@crazylife.co',1,1,'2016-12-09 09:48:27.732338','namnp');
+INSERT INTO "auth_user" VALUES(8,'pbkdf2_sha256$24000$n3UkHohJ2ivT$9JC0eEaMHVt9X9ImhiSbLVzng7PWn3vqyRbwHG2NUkc=','2016-12-09 11:54:12',1,'Sơn','Phạm','sonpdh@crazylife.com',1,1,'2016-12-09 10:12:28','sonpdh');
+INSERT INTO "auth_user" VALUES(9,'pbkdf2_sha256$24000$ZOoRgwQT3nNt$rpy/wf1Fqz6I7q+5v0nOsbl1vi48/diiFnUMQh+PfPU=',NULL,0,'','','nam123@gmail.com',0,1,'2016-12-09 10:27:13.966248','namnp12345');
+INSERT INTO "auth_user" VALUES(10,'pbkdf2_sha256$24000$fB8ZAPgiwlIf$AKxSTWXYatXl1eK2NnLdridbH9M0PVIAo/qsuo7jcPE=','2016-12-09 10:49:03.754331',0,'','','',1,1,'2016-12-09 10:45:38','manhhv');
+INSERT INTO "auth_user" VALUES(11,'pbkdf2_sha256$24000$KRJU0OdVtgSr$+Yn401i1x048pvTBHTGhGsFPHtd22X2v/fOS3MNGqLw=','2016-12-09 10:48:56.851811',0,'','','',1,1,'2016-12-09 10:46:56','duannx');
+DELETE FROM sqlite_sequence;
+INSERT INTO "sqlite_sequence" VALUES('django_migrations',24);
+INSERT INTO "sqlite_sequence" VALUES('django_admin_log',112);
+INSERT INTO "sqlite_sequence" VALUES('django_content_type',21);
+INSERT INTO "sqlite_sequence" VALUES('auth_permission',63);
+INSERT INTO "sqlite_sequence" VALUES('core_invitation',0);
+INSERT INTO "sqlite_sequence" VALUES('core_comment',0);
+INSERT INTO "sqlite_sequence" VALUES('core_action',47);
+INSERT INTO "sqlite_sequence" VALUES('core_actionpicture',3);
+INSERT INTO "sqlite_sequence" VALUES('auth_group',2);
+INSERT INTO "sqlite_sequence" VALUES('auth_group_permissions',12);
+INSERT INTO "sqlite_sequence" VALUES('auth_user_groups',3);
+INSERT INTO "sqlite_sequence" VALUES('core_userprofile',5);
+INSERT INTO "sqlite_sequence" VALUES('account_emailaddress',0);
+INSERT INTO "sqlite_sequence" VALUES('django_site',2);
+INSERT INTO "sqlite_sequence" VALUES('socialaccount_socialtoken',0);
+INSERT INTO "sqlite_sequence" VALUES('socialaccount_socialapp',0);
+INSERT INTO "sqlite_sequence" VALUES('socialaccount_socialaccount',0);
+INSERT INTO "sqlite_sequence" VALUES('auth_user',12);
+INSERT INTO "sqlite_sequence" VALUES('core_actionreflink',2);
+INSERT INTO "sqlite_sequence" VALUES('auth_user_user_permissions',24);
+CREATE UNIQUE INDEX "auth_group_permissions_group_id_0cd325b0_uniq" ON "auth_group_permissions" ("group_id", "permission_id");
+CREATE INDEX "auth_group_permissions_0e939a4f" ON "auth_group_permissions" ("group_id");
+CREATE INDEX "auth_group_permissions_8373b171" ON "auth_group_permissions" ("permission_id");
+CREATE UNIQUE INDEX "auth_user_groups_user_id_94350c0c_uniq" ON "auth_user_groups" ("user_id", "group_id");
+CREATE INDEX "auth_user_groups_e8701ad4" ON "auth_user_groups" ("user_id");
+CREATE INDEX "auth_user_groups_0e939a4f" ON "auth_user_groups" ("group_id");
+CREATE UNIQUE INDEX "auth_user_user_permissions_user_id_14a6b632_uniq" ON "auth_user_user_permissions" ("user_id", "permission_id");
+CREATE INDEX "auth_user_user_permissions_e8701ad4" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX "auth_user_user_permissions_8373b171" ON "auth_user_user_permissions" ("permission_id");
+CREATE INDEX "django_admin_log_417f1b1c" ON "django_admin_log" ("content_type_id");
+CREATE INDEX "django_admin_log_e8701ad4" ON "django_admin_log" ("user_id");
+CREATE UNIQUE INDEX "django_content_type_app_label_76bd3d3b_uniq" ON "django_content_type" ("app_label", "model");
+CREATE UNIQUE INDEX "auth_permission_content_type_id_01ab375a_uniq" ON "auth_permission" ("content_type_id", "codename");
+CREATE INDEX "auth_permission_417f1b1c" ON "auth_permission" ("content_type_id");
+CREATE INDEX "django_session_de54fa62" ON "django_session" ("expire_date");
+CREATE INDEX "core_actionpicture_c13a9e75" ON "core_actionpicture" ("actionid_id");
+CREATE INDEX "core_actionreflink_c13a9e75" ON "core_actionreflink" ("actionid_id");
+CREATE INDEX "core_activity_e8701ad4" ON "core_activity" ("user_id");
+CREATE UNIQUE INDEX "core_comment_childcomment_from_comment_id_cebc0f63_uniq" ON "core_comment_childcomment" ("from_comment_id", "to_comment_id");
+CREATE INDEX "core_comment_childcomment_e5356c7f" ON "core_comment_childcomment" ("from_comment_id");
+CREATE INDEX "core_comment_childcomment_0206cdd1" ON "core_comment_childcomment" ("to_comment_id");
+CREATE INDEX "core_notification_909acdf2" ON "core_notification" ("action_id");
+CREATE INDEX "core_notification_69b97d17" ON "core_notification" ("comment_id");
+CREATE INDEX "core_notification_630779f3" ON "core_notification" ("inviation_id");
+CREATE INDEX "core_invitation_0c8f4d97" ON "core_invitation" ("fromuser_id");
+CREATE INDEX "core_invitation_47a4396b" ON "core_invitation" ("touser_id");
+CREATE INDEX "core_comment_ff861967" ON "core_comment" ("commentby_id");
+CREATE INDEX "core_comment_21499202" ON "core_comment" ("commentin_id");
+CREATE UNIQUE INDEX "core_action_likeby_action_id_a59db4f9_uniq" ON "core_action_likeby" ("action_id", "userprofile_id");
+CREATE INDEX "core_action_likeby_909acdf2" ON "core_action_likeby" ("action_id");
+CREATE INDEX "core_action_likeby_9c2a73e9" ON "core_action_likeby" ("userprofile_id");
+CREATE UNIQUE INDEX "core_action_listComment_action_id_02557f96_uniq" ON "core_action_listComment" ("action_id", "comment_id");
+CREATE INDEX "core_action_listComment_909acdf2" ON "core_action_listComment" ("action_id");
+CREATE INDEX "core_action_listComment_69b97d17" ON "core_action_listComment" ("comment_id");
+CREATE INDEX "account_emailconfirmation_6f1edeac" ON "account_emailconfirmation" ("email_address_id");
+CREATE INDEX "account_emailaddress_e8701ad4" ON "account_emailaddress" ("user_id");
+CREATE UNIQUE INDEX "socialaccount_socialapp_sites_socialapp_id_71a9a768_uniq" ON "socialaccount_socialapp_sites" ("socialapp_id", "site_id");
+CREATE INDEX "socialaccount_socialapp_sites_fe95b0a0" ON "socialaccount_socialapp_sites" ("socialapp_id");
+CREATE INDEX "socialaccount_socialapp_sites_9365d6e7" ON "socialaccount_socialapp_sites" ("site_id");
+CREATE UNIQUE INDEX "socialaccount_socialtoken_app_id_fca4e0ac_uniq" ON "socialaccount_socialtoken" ("app_id", "account_id");
+CREATE INDEX "socialaccount_socialtoken_8a089c2a" ON "socialaccount_socialtoken" ("account_id");
+CREATE INDEX "socialaccount_socialtoken_f382adfe" ON "socialaccount_socialtoken" ("app_id");
+CREATE UNIQUE INDEX "socialaccount_socialaccount_provider_fc810c6e_uniq" ON "socialaccount_socialaccount" ("provider", "uid");
+CREATE INDEX "socialaccount_socialaccount_e8701ad4" ON "socialaccount_socialaccount" ("user_id");
+COMMIT;
